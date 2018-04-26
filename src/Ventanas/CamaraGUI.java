@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
 public class CamaraGUI extends javax.swing.JFrame {
 
     private CCP ccp;
-    
+
     public CamaraGUI(CCP c) {
         this.ccp = c;
         initComponents();
@@ -36,10 +36,10 @@ public class CamaraGUI extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         opcionRegistrarReservacion = new javax.swing.JMenuItem();
         opcionCancelarReservacion = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        btnConsultarReservaciones = new javax.swing.JMenuItem();
         acrualizarCliente = new javax.swing.JMenu();
         Regis = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        BtnConsultarClientes = new javax.swing.JMenuItem();
 
         jMenu2.setText("File");
         jMenuBar2.add(jMenu2);
@@ -81,15 +81,20 @@ public class CamaraGUI extends javax.swing.JFrame {
 
         opcionCancelarReservacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/archivo (1).png"))); // NOI18N
         opcionCancelarReservacion.setText("Cancelar Reservacion");
-        jMenu1.add(opcionCancelarReservacion);
-
-        jMenuItem2.setText("Consultar Reservaciones");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        opcionCancelarReservacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                opcionCancelarReservacionActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jMenu1.add(opcionCancelarReservacion);
+
+        btnConsultarReservaciones.setText("Consultar Reservaciones");
+        btnConsultarReservaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarReservacionesActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnConsultarReservaciones);
 
         jMenuBar1.add(jMenu1);
 
@@ -106,13 +111,13 @@ public class CamaraGUI extends javax.swing.JFrame {
         });
         acrualizarCliente.add(Regis);
 
-        jMenuItem1.setText("Consultar Clientes");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        BtnConsultarClientes.setText("Consultar Clientes");
+        BtnConsultarClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                BtnConsultarClientesActionPerformed(evt);
             }
         });
-        acrualizarCliente.add(jMenuItem1);
+        acrualizarCliente.add(BtnConsultarClientes);
 
         jMenuBar1.add(acrualizarCliente);
 
@@ -121,22 +126,27 @@ public class CamaraGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private ActualizarCliente ventana2;
+    private ActualizarCliente ventana2 = null;
     private void RegisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisActionPerformed
-        
-         if (this.ventana2 == null) {
+
+        if (this.ventana2 == null) {
             this.ventana2 = new ActualizarCliente(ccp);
             this.ventana2.setResizable(false);
         }
         ventana2.setVisible(true);
     }//GEN-LAST:event_RegisActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-    
-    private Salon ventana;
-    
+    private ConsultarClientes ventana4 = null;
+    private void BtnConsultarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConsultarClientesActionPerformed
+        if (this.ventana4 == null) {
+            this.ventana4 = new ConsultarClientes(ccp);
+            this.ventana4.setResizable(false);
+        }
+        ventana4.setVisible(true);
+    }//GEN-LAST:event_BtnConsultarClientesActionPerformed
+
+    private Salon ventana = null;
+
     private void opcionRegistrarReservacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionRegistrarReservacionActionPerformed
 
         if (this.ventana == null) {
@@ -147,30 +157,44 @@ public class CamaraGUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_opcionRegistrarReservacionActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    private ConsultarReservaciones ventana3 = null;
+    private void btnConsultarReservacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarReservacionesActionPerformed
+
+        if (this.ventana3 == null) {
+            this.ventana3 = new ConsultarReservaciones(ccp);
+            this.ventana3.setResizable(false);
+        }
+        ventana3.setVisible(true);
+    }//GEN-LAST:event_btnConsultarReservacionesActionPerformed
 
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenu1ActionPerformed
+    private CancelarR_GUI ventana5 = null;
+    private void opcionCancelarReservacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionCancelarReservacionActionPerformed
+
+        if (this.ventana5 == null) {
+            this.ventana5 = new CancelarR_GUI(ccp);
+            this.ventana5.setResizable(false);
+        }
+        ventana5.setVisible(true);
+    }//GEN-LAST:event_opcionCancelarReservacionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem BtnConsultarClientes;
     private javax.swing.JMenuItem Regis;
     private javax.swing.JMenu acrualizarCliente;
+    private javax.swing.JMenuItem btnConsultarReservaciones;
     private javax.swing.JPanel desktop;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem opcionCancelarReservacion;
     private javax.swing.JMenuItem opcionRegistrarReservacion;
     // End of variables declaration//GEN-END:variables
-
 
 //    public class ManejadorCancelarReservaciones implements ActionListener {
 //
