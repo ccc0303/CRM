@@ -6,6 +6,7 @@
 package Ventanas;
 
 import Clases.CCP;
+import Clases.Salones;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,6 +32,12 @@ public class Hora extends javax.swing.JFrame {
         String fechaCadena = sdf.format(fech);
         fecha.setText(fechaCadena);
 
+        Salon s = new Salon(ccp);
+        Salones sal = s.sa;
+        txtSalon.setText(sal.toString());
+        
+        txtSalon.setEditable(false);
+        fecha.setEditable(false);
     }
 
 
@@ -44,7 +51,7 @@ public class Hora extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtSalon = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         fecha = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -58,7 +65,7 @@ public class Hora extends javax.swing.JFrame {
         jFormattedTextField2 = new javax.swing.JFormattedTextField();
         hinicio = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Salon:");
 
@@ -123,9 +130,9 @@ public class Hora extends javax.swing.JFrame {
                                 .addComponent(jLabel2)
                                 .addComponent(jLabel1))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtSalon, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel3)
@@ -146,7 +153,7 @@ public class Hora extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSalon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -212,7 +219,7 @@ public class Hora extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton siguiente;
+    private javax.swing.JTextField txtSalon;
     // End of variables declaration//GEN-END:variables
 }

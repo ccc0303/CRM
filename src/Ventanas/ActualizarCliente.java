@@ -7,7 +7,6 @@ package Ventanas;
 
 import Clases.CCP;
 import Clases.Cliente;
-import Clases.TipoCliente;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
@@ -344,4 +343,5 @@ public class ActualizarCliente extends javax.swing.JDialog {
         }
     }
 
+ 
 }

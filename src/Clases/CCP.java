@@ -13,7 +13,7 @@ import java.util.Objects;
  * @author Yoselin
  */
 
-//niche es una loca
+
 public class CCP {
 
     private LinkedList<Cliente> clientes;
