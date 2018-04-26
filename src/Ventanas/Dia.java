@@ -13,8 +13,9 @@ import java.util.Date;
  * @author Yoselin
  */
 public class Dia extends javax.swing.JFrame {
-    
-     private CCP ccp;
+
+    private CCP ccp;
+
     /**
      * Creates new form Dia
      */
@@ -22,8 +23,10 @@ public class Dia extends javax.swing.JFrame {
         this.ccp = c;
         initComponents();
         this.setLocationRelativeTo(null);
-        
+
     }
+    CamaraGUI cg = new CamaraGUI(ccp);
+    Salon ven = cg.v;
     public static Date fe;
 
     /**
@@ -36,12 +39,17 @@ public class Dia extends javax.swing.JFrame {
     private void initComponents() {
 
         Calendario = new com.toedter.calendar.JCalendar();
-        jButton1 = new javax.swing.JButton();
+        btnAnterior = new javax.swing.JButton();
         Siguiente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Anterior");
+        btnAnterior.setText("Anterior");
+        btnAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnteriorActionPerformed(evt);
+            }
+        });
 
         Siguiente.setText("Siguiente");
         Siguiente.addActionListener(new java.awt.event.ActionListener() {
@@ -58,7 +66,7 @@ public class Dia extends javax.swing.JFrame {
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnAnterior)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Siguiente))
                     .addComponent(Calendario, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -71,7 +79,7 @@ public class Dia extends javax.swing.JFrame {
                 .addComponent(Calendario, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnAnterior)
                     .addComponent(Siguiente))
                 .addGap(29, 29, 29))
         );
@@ -81,16 +89,22 @@ public class Dia extends javax.swing.JFrame {
 
     private Hora ventana = null;
     private void SiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SiguienteActionPerformed
-        
+
         Date fecha = Calendario.getDate();
         fe = fecha;
         if (this.ventana == null) {
             this.ventana = new Hora(ccp);
             this.ventana.setResizable(false);
-            dispose();        
+            dispose();
         }
         ventana.setVisible(true);
     }//GEN-LAST:event_SiguienteActionPerformed
+
+
+    private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
+        dispose();
+        ven.setVisible(true);
+    }//GEN-LAST:event_btnAnteriorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -98,6 +112,6 @@ public class Dia extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JCalendar Calendario;
     private javax.swing.JButton Siguiente;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnAnterior;
     // End of variables declaration//GEN-END:variables
 }

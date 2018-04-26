@@ -23,6 +23,7 @@ public class CamaraGUI extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
 
     }
+    public static Salon v = null;
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -145,16 +146,16 @@ public class CamaraGUI extends javax.swing.JFrame {
         ventana4.setVisible(true);
     }//GEN-LAST:event_BtnConsultarClientesActionPerformed
 
-    private Salon ventana = null;
+//    private Salon ventana = null;
 
     private void opcionRegistrarReservacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionRegistrarReservacionActionPerformed
 
-        if (this.ventana == null) {
-            this.ventana = new Salon(ccp);
-            this.ventana.setResizable(false);
-        }
-        ventana.setVisible(true);
-
+        if (this.v == null) {
+            this.v = new Salon(ccp);
+            this.v.setResizable(false);
+        } 
+        v.setVisible(true);
+        
     }//GEN-LAST:event_opcionRegistrarReservacionActionPerformed
 
     private ConsultarReservaciones ventana3 = null;

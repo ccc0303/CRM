@@ -111,9 +111,9 @@ public class Salon extends javax.swing.JFrame {
             sa = ccp.getSalones().get(3);
         }
         ventana.setVisible(true);
+        dispose();
 
     }//GEN-LAST:event_SalonMeActionPerformed
-
 
     private void SalonReunionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalonReunionActionPerformed
         if (this.ventana == null) {
@@ -123,6 +123,7 @@ public class Salon extends javax.swing.JFrame {
             sa = ccp.getSalones().get(2);
         }
         ventana.setVisible(true);
+        dispose();
 
     }//GEN-LAST:event_SalonReunionActionPerformed
 
@@ -134,9 +135,10 @@ public class Salon extends javax.swing.JFrame {
             sa = ccp.getSalones().get(0);
         }
         ventana.setVisible(true);
+        dispose();
     }//GEN-LAST:event_Salon205ActionPerformed
 
-    private Dia ventana = null;
+    Dia ventana = null;
     private void AuditorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AuditorioActionPerformed
 
         if (this.ventana == null) {
@@ -146,6 +148,7 @@ public class Salon extends javax.swing.JFrame {
             sa = ccp.getSalones().get(1);
                     }
         ventana.setVisible(true);
+        dispose();
     }//GEN-LAST:event_AuditorioActionPerformed
 
     /**
