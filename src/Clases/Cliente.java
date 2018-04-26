@@ -15,6 +15,7 @@ public class Cliente extends Persona {
     private long telefono;
     private TipoCliente tipo_cliente;
 
+    //miame
     public Cliente(String email, long telefono, Long identificacion, String nombre,
             TipoCliente tipo_cliente) throws Exception {
         super(identificacion, nombre);
