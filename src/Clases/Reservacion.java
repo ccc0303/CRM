@@ -2,32 +2,30 @@ package Clases;
 
 import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 public class Reservacion {
 
     
     private int codigo;
-    private Salones salon;
     private Cliente cliente;
     private Evento evento; 
-    private Time hora_inicio;
-    private Time hora_fin;
+    private LocalTime hora_inicio;
+    private LocalTime hora_fin;
     private LocalDate fecha_solicitud;
-    private Date fecha_programada;
+    private LocalDate fecha_programada;
     
     private boolean estado;
 
-    public Reservacion(Cliente cliente, Evento evento, Salones salon, Time hora_inicio, Time hora_fin, LocalDate fecha_solicitud, Date fecha_programada) {
+    public Reservacion(Cliente cliente, Evento evento, LocalTime hora_inicio, LocalTime hora_fin, LocalDate fecha_programada) {
         this.cliente = cliente;
         this.evento = evento;
         this.hora_inicio = hora_inicio;
         this.hora_fin = hora_fin;
-        this.fecha_solicitud = fecha_solicitud;
         this.fecha_programada = fecha_programada;
         this.estado = true;
         this.codigo = 1;
-        this.salon = salon;
     }
 
     public int getCodigo() {
@@ -46,11 +44,11 @@ public class Reservacion {
         return evento;
     }
 
-    public Time getHora_inicio() {
+    public LocalTime getHora_inicio() {
         return hora_inicio;
     }
 
-    public Time getHora_fin() {
+    public LocalTime getHora_fin() {
         return hora_fin;
     }
 
@@ -58,7 +56,7 @@ public class Reservacion {
         return this.fecha_solicitud = LocalDate.now();
     }
 
-    public Date getFecha_programada() {
+    public LocalDate getFecha_programada() {
         return fecha_programada;
     }
 
@@ -70,9 +68,6 @@ public class Reservacion {
         this.estado = estado;
     }
 
-    public Salones getSalon() {
-        return salon;
-    }
     
 
 }

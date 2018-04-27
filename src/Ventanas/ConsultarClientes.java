@@ -7,12 +7,14 @@ package Ventanas;
 
 import Clases.CCP;
 import Clases.Cliente;
+import Clases.Reservacion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -32,6 +34,7 @@ public class ConsultarClientes extends javax.swing.JFrame {
         jTable1.setAutoCreateRowSorter(true);
         ManejadorBuscar mb = new ManejadorBuscar();
         btnBuscar.addActionListener(mb);
+        txtCedula.addActionListener(mb);
 
     }
 
@@ -119,12 +122,12 @@ public class ConsultarClientes extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(btnBuscar))))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(113, 113, 113)
-                        .addComponent(jLabel1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,7 +184,6 @@ public class ConsultarClientes extends javax.swing.JFrame {
     private javax.swing.JTextField txtCedula;
     // End of variables declaration//GEN-END:variables
 
-    private int tamaño;
     private Object rv;
 
     public class ManejadorBuscar implements ActionListener {
@@ -201,9 +203,9 @@ public class ConsultarClientes extends javax.swing.JFrame {
             } catch (NumberFormatException nfe) {
                 JOptionPane.showMessageDialog(null, "Ingrese Un Codigo Valido");
             } catch (IllegalArgumentException iae) {
-              //  JOptionPane.showMessageDialog(null, iae.getMessage());
+                //  JOptionPane.showMessageDialog(null, iae.getMessage());
             } catch (Exception ex) {
-               // JOptionPane.showMessageDialog(null, ex.getMessage());
+                // JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         }
     }
@@ -215,14 +217,10 @@ public class ConsultarClientes extends javax.swing.JFrame {
         @Override
         public int getRowCount() {
 
-            if (ccp.ConsulttarCliente(cc) == null) {  
+            if (ccp.ConsulttarCliente(cc).isEmpty()) {
                 JOptionPane.showMessageDialog(null, "No Se Encontraron Reservaciones");
             }
-
-            tamaño = ccp.ConsulttarCliente(cc).size();
-
-            return tamaño;
-
+            return ccp.ConsulttarCliente(cc).size();
         }
 
         @Override
@@ -232,12 +230,27 @@ public class ConsultarClientes extends javax.swing.JFrame {
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
-            return null;
-
+            Reservacion dc = ccp.ConsulttarCliente(cc).get(rowIndex);
+            Object valor = "";
+            switch (columnIndex) {
+                case 0:
+                    valor = dc.getEvento().getSalon().getNombre();
+                    break;
+                case 1:
+                    valor = dc.getFecha_programada();
+                    break;
+                case 2:
+                    valor = dc.getHora_inicio();
+                    break;
+                case 3:
+                    valor = dc.getHora_fin();
+                    break;
+            }
+            return valor;
         }
 
         private Class[] clases = {
-            String.class, Date.class, String.class, String.class
+            String.class, LocalDate.class, LocalTime.class, LocalTime.class
         };
 
         @Override
@@ -246,7 +259,7 @@ public class ConsultarClientes extends javax.swing.JFrame {
         }
 
         private String[] nombreColumnas = {
-            "Salon", "Fecha Solicitud", "Hora Inicio", "Hora Fin"
+            "Salon", "Fecha", "Hora Inicio", "Hora Fin"
         };
 
         public String getColumnName(int columnIndex) {

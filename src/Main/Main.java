@@ -12,11 +12,9 @@ import Clases.Reservacion;
 import Clases.Salones;
 import Clases.TipoCliente;
 import Ventanas.Login;
-import java.sql.Time;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalTime;
+import java.time.Month;
 
 /**
  *
@@ -30,8 +28,6 @@ public class Main {
     public static void main(String[] args) throws Exception {
         // TODO code application logic here
 
-        java.util.Date fecha = new Date();
-        Calendar calendario = Calendar.getInstance();
         TipoCliente tc1 = new TipoCliente("Camara De Comercio", 123);
         TipoCliente tc2 = new TipoCliente("Fundacion Progresamos", 111);
         TipoCliente tc3 = new TipoCliente("Estatales", 222);
@@ -41,10 +37,11 @@ public class Main {
         Salones s2 = new Salones("Salon Empresarial", 2222);
         Salones s3 = new Salones("Salon de Exposiciones", 3333);
         Salones s4 = new Salones("Sala 205", 4444);
-        
+
         Cliente c = new Cliente("oscarwwe4@gmail.com", 3207115241L, 1114838771L, "Oscar Chaves", tc4);
-        Evento e = new Evento();
-       // Reservacion rs = new Reservacion( c, e, s4,(Time) calendario.getTime(), (Time) calendario.getTime() , LocalDate.now(), Date.from(Instant.MIN));
+
+        Evento e = new Evento("Reunion", "Cristian", 10, 1114838772L, s2);
+        Reservacion rs = new Reservacion(c, e, LocalTime.parse("10:00:00"), LocalTime.parse("11:00:00"), LocalDate.of(2018, Month.APRIL, 29));
 
         CCP ccp = new CCP();
 
@@ -57,8 +54,9 @@ public class Main {
         ccp.agregarTipoCliente(tc3);
         ccp.agregarTipoCliente(tc2);
         ccp.agregarTipoCliente(tc1);
-        
+
         ccp.AgregarCliente(c);
+        ccp.AgregarReservacion(rs);
 
         new Login(ccp).setVisible(true);
     }

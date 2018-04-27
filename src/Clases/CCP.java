@@ -82,7 +82,7 @@ public class CCP {
         int i = 0;
         while (this.reservaciones.size() > i) {
             if ((Objects.equals(this.reservaciones.get(i).getFecha_programada(), r.getFecha_programada()))
-                    && (this.reservaciones.get(i).getHora_inicio().getHours() == r.getHora_inicio().getHours())) {
+                    && (this.reservaciones.get(i).getHora_inicio().getHour() == r.getHora_inicio().getHour())) {
                 throw new Exception("No Se Puede Agregar Dos Reservaciones A La Misma Hora");
             } else {
                 i++;
@@ -91,23 +91,22 @@ public class CCP {
         this.reservaciones.add(r);
     }
       
-  public ArrayList<Reservacion> ConsulttarCliente( Long cc) {
+  public LinkedList<Reservacion> ConsulttarCliente(Long cc) {
       
-    ArrayList<Reservacion> reser = null ;
+   LinkedList<Reservacion> reser = new LinkedList<>() ;
     int i = 0;
     
     while (  this.reservaciones.size() > i )
-        if ( this.reservaciones.get(i).getCliente().getIdentificacion() == cc){
+        if ( Objects.equals(this.reservaciones.get(i).getCliente().getIdentificacion(), cc)){
            reser.add(this.reservaciones.get(i));
+           i++;
         }else{
             i = i + 1;
         }
-  
     return reser;
   }
       
-      
-      
+         
       
 //      public LinkedList<Reservacion> buscarReservacion(Long ident) throws Exception{
 //          int i = 0;

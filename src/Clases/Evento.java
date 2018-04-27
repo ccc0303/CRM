@@ -11,9 +11,15 @@ public class Evento {
     private Long idResponsableEvento;
     private Salones salon;
 
-    public Evento() {
-       
+    public Evento(String nombre, String responsableEvento, int num_asistentes, Long idResponsableEvento, Salones salon) {
+        this.nombre = nombre;
+        this.responsableEvento = responsableEvento;
+        this.num_asistentes = num_asistentes;
+        this.idResponsableEvento = idResponsableEvento;
+        this.salon = salon;
     }
+
+   
 
     public String getNombre() {
         return nombre;

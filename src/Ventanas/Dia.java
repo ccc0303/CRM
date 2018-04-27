@@ -6,7 +6,9 @@
 package Ventanas;
 
 import Clases.CCP;
+import java.time.LocalDate;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -92,12 +94,14 @@ public class Dia extends javax.swing.JFrame {
 
         Date fecha = Calendario.getDate();
         fe = fecha;
+
         if (this.ventana == null) {
             this.ventana = new Hora(ccp);
             this.ventana.setResizable(false);
             dispose();
         }
         ventana.setVisible(true);
+
     }//GEN-LAST:event_SiguienteActionPerformed
 
 
