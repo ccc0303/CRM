@@ -40,7 +40,7 @@ public class Dia extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Calendario = new com.toedter.calendar.JCalendar();
+        Calend = new com.toedter.calendar.JCalendar();
         btnAnterior = new javax.swing.JButton();
         Siguiente = new javax.swing.JButton();
 
@@ -71,14 +71,14 @@ public class Dia extends javax.swing.JFrame {
                         .addComponent(btnAnterior)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Siguiente))
-                    .addComponent(Calendario, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Calend, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(Calendario, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Calend, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAnterior)
@@ -92,16 +92,25 @@ public class Dia extends javax.swing.JFrame {
     private Hora ventana = null;
     private void SiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SiguienteActionPerformed
 
-        Date fecha = Calendario.getDate();
-        fe = fecha;
-
+        Date fecha = Calend.getDate();
+        
+        if(((fecha.getYear() + 1900 == LocalDate.now().getYear())
+                && (fecha.getMonth() + 1 >= LocalDate.now().getMonthValue())
+                && (fecha.getDay() + 22 > LocalDate.now().getDayOfMonth()))
+             ||(fecha.getYear() + 1900 > LocalDate.now().getYear())){
+          fe = fecha;
         if (this.ventana == null) {
             this.ventana = new Hora(ccp);
             this.ventana.setResizable(false);
             dispose();
         }
         ventana.setVisible(true);
-
+  
+        }else{
+            JOptionPane.showMessageDialog(null, "Selecione una fecha correcta");
+        }
+        System.out.println(fecha.getDay());
+        System.out.println(LocalDate.now().getDayOfMonth());
     }//GEN-LAST:event_SiguienteActionPerformed
 
 
@@ -114,7 +123,7 @@ public class Dia extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JCalendar Calendario;
+    private com.toedter.calendar.JCalendar Calend;
     private javax.swing.JButton Siguiente;
     private javax.swing.JButton btnAnterior;
     // End of variables declaration//GEN-END:variables
