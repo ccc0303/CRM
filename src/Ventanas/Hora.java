@@ -189,11 +189,11 @@ public class Hora extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private Reservacion ventana = null;
+    private Reservaciones ventana = null;
     private void siguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siguienteActionPerformed
 
         if (this.ventana == null) {
-            this.ventana = new Reservacion(ccp);
+            this.ventana = new Reservaciones(ccp);
             this.ventana.setResizable(false);
             dispose();
         }

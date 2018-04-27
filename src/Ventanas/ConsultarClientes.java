@@ -6,6 +6,13 @@
 package Ventanas;
 
 import Clases.CCP;
+import Clases.Cliente;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,6 +29,10 @@ public class ConsultarClientes extends javax.swing.JFrame {
         this.ccp = c;
         initComponents();
         this.setLocationRelativeTo(null);
+        jTable1.setAutoCreateRowSorter(true);
+        ManejadorBuscar mb = new ManejadorBuscar();
+        btnBuscar.addActionListener(mb);
+
     }
 
     /**
@@ -169,4 +180,81 @@ public class ConsultarClientes extends javax.swing.JFrame {
     private javax.swing.JTextField tt;
     private javax.swing.JTextField txtCedula;
     // End of variables declaration//GEN-END:variables
+
+    private int tamaño;
+    private Object rv;
+
+    public class ManejadorBuscar implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                Long identificacion = Long.parseLong(txtCedula.getText());
+                Cliente soli = ccp.buscarCliente(identificacion);
+                Nombre.setText(soli.getNombres());
+                tt.setText(Long.toString(soli.getTelefono()));
+
+                ManejadorJtable mtm = new ManejadorJtable();
+                jTable1.setModel(mtm);
+                jTable1.setAutoCreateRowSorter(true);
+
+            } catch (NumberFormatException nfe) {
+                JOptionPane.showMessageDialog(null, "Ingrese Un Codigo Valido");
+            } catch (IllegalArgumentException iae) {
+              //  JOptionPane.showMessageDialog(null, iae.getMessage());
+            } catch (Exception ex) {
+               // JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+        }
+    }
+
+    public class ManejadorJtable extends AbstractTableModel {
+
+        long cc = Long.parseLong(txtCedula.getText());
+
+        @Override
+        public int getRowCount() {
+
+            if (ccp.ConsulttarCliente(cc) == null) {  
+                JOptionPane.showMessageDialog(null, "No Se Encontraron Reservaciones");
+            }
+
+            tamaño = ccp.ConsulttarCliente(cc).size();
+
+            return tamaño;
+
+        }
+
+        @Override
+        public int getColumnCount() {
+            return 4;
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            return null;
+
+        }
+
+        private Class[] clases = {
+            String.class, Date.class, String.class, String.class
+        };
+
+        @Override
+        public Class<?> getColumnClass(int columnIndex) {
+            return clases[columnIndex];
+        }
+
+        private String[] nombreColumnas = {
+            "Salon", "Fecha Solicitud", "Hora Inicio", "Hora Fin"
+        };
+
+        public String getColumnName(int columnIndex) {
+
+            return nombreColumnas[columnIndex];
+
+        }
+
+    }
+
 }

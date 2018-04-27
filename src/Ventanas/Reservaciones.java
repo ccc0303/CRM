@@ -14,13 +14,13 @@ import java.util.Date;
  *
  * @author Yoselin
  */
-public class Reservacion extends javax.swing.JFrame {
+public class Reservaciones extends javax.swing.JFrame {
 
      private CCP ccp;
     /**
      * Creates new form Reservacion
      */
-    public Reservacion(CCP c) {
+    public Reservaciones(CCP c) {
         this.ccp = c;
         initComponents();
         this.setLocationRelativeTo(null);

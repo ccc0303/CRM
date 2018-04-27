@@ -5,6 +5,7 @@
  */
 package Clases;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Objects;
 
@@ -89,6 +90,24 @@ public class CCP {
         }
         this.reservaciones.add(r);
     }
+      
+  public ArrayList<Reservacion> ConsulttarCliente( Long cc) {
+      
+    ArrayList<Reservacion> reser = null ;
+    int i = 0;
+    
+    while (  this.reservaciones.size() > i )
+        if ( this.reservaciones.get(i).getCliente().getIdentificacion() == cc){
+           reser.add(this.reservaciones.get(i));
+        }else{
+            i = i + 1;
+        }
+  
+    return reser;
+  }
+      
+      
+      
       
 //      public LinkedList<Reservacion> buscarReservacion(Long ident) throws Exception{
 //          int i = 0;

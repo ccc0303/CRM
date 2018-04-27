@@ -11,25 +11,8 @@ public class Evento {
     private Long idResponsableEvento;
     private Salones salon;
 
-    public Evento(String nombre, String responsableEvento, int num_asistentes,
-            boolean himnos, boolean manteles, boolean papelografo, boolean mesas, boolean señalizador,
-            boolean video_beam, boolean portatil, boolean telon, boolean microfono, 
-            TipoSilleteria silleteria, Long idResponsableEvento, Salones salon) {
-        this.nombre = nombre;
-        this.responsableEvento = responsableEvento;
-        this.num_asistentes = num_asistentes;
-        this.himnos = himnos;
-        this.manteles = manteles;
-        this.papelografo = papelografo;
-        this.mesas = mesas;
-        this.señalizador = señalizador;
-        this.video_beam = video_beam;
-        this.portatil = portatil;
-        this.telon = telon;
-        this.microfono = microfono;
-        this.silleteria = silleteria;
-        this.idResponsableEvento = idResponsableEvento;
-        this.salon = salon;
+    public Evento() {
+       
     }
 
     public String getNombre() {

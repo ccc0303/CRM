@@ -7,9 +7,16 @@ package Main;
 
 import Clases.CCP;
 import Clases.Cliente;
+import Clases.Evento;
+import Clases.Reservacion;
 import Clases.Salones;
 import Clases.TipoCliente;
 import Ventanas.Login;
+import java.sql.Time;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -23,6 +30,8 @@ public class Main {
     public static void main(String[] args) throws Exception {
         // TODO code application logic here
 
+        java.util.Date fecha = new Date();
+        Calendar calendario = Calendar.getInstance();
         TipoCliente tc1 = new TipoCliente("Camara De Comercio", 123);
         TipoCliente tc2 = new TipoCliente("Fundacion Progresamos", 111);
         TipoCliente tc3 = new TipoCliente("Estatales", 222);
@@ -34,6 +43,8 @@ public class Main {
         Salones s4 = new Salones("Sala 205", 4444);
         
         Cliente c = new Cliente("oscarwwe4@gmail.com", 3207115241L, 1114838771L, "Oscar Chaves", tc4);
+        Evento e = new Evento();
+       // Reservacion rs = new Reservacion( c, e, s4,(Time) calendario.getTime(), (Time) calendario.getTime() , LocalDate.now(), Date.from(Instant.MIN));
 
         CCP ccp = new CCP();
 

@@ -6,7 +6,9 @@ import java.util.Date;
 
 public class Reservacion {
 
+    
     private int codigo;
+    private Salones salon;
     private Cliente cliente;
     private Evento evento; 
     private Time hora_inicio;
@@ -16,7 +18,7 @@ public class Reservacion {
     
     private boolean estado;
 
-    public Reservacion(Cliente cliente, Evento evento, Time hora_inicio, Time hora_fin, LocalDate fecha_solicitud, Date fecha_programada) {
+    public Reservacion(Cliente cliente, Evento evento, Salones salon, Time hora_inicio, Time hora_fin, LocalDate fecha_solicitud, Date fecha_programada) {
         this.cliente = cliente;
         this.evento = evento;
         this.hora_inicio = hora_inicio;
@@ -25,6 +27,7 @@ public class Reservacion {
         this.fecha_programada = fecha_programada;
         this.estado = true;
         this.codigo = 1;
+        this.salon = salon;
     }
 
     public int getCodigo() {
@@ -66,5 +69,10 @@ public class Reservacion {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
+    public Salones getSalon() {
+        return salon;
+    }
+    
 
 }
