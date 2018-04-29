@@ -7,6 +7,7 @@ package Ventanas;
 
 import Clases.CCP;
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
@@ -93,10 +94,17 @@ public class Dia extends javax.swing.JFrame {
     private void SiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SiguienteActionPerformed
 
         Date fecha = Calend.getDate();
+ 
         
+      //  System.out.println(fecha.getYear());
+        //    System.out.println(LocalDate.now().getYear());
+          //    System.out.println(fecha.getMonth());
+            //      System.out.println(LocalDate.now().getMonthValue());
+                   //gSystem.out.println(fecha.getDate());
+                //         System.out.println(LocalDate.now().getDayOfMonth());
         if(((fecha.getYear() + 1900 == LocalDate.now().getYear())
                 && (fecha.getMonth() + 1 >= LocalDate.now().getMonthValue())
-                && (fecha.getDay() + 22 > LocalDate.now().getDayOfMonth()))
+                && (fecha.getDate() > LocalDate.now().getDayOfMonth()))
              ||(fecha.getYear() + 1900 > LocalDate.now().getYear())){
           fe = fecha;
         if (this.ventana == null) {

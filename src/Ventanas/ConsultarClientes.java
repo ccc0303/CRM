@@ -15,6 +15,7 @@ import java.time.LocalTime;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -213,14 +214,17 @@ public class ConsultarClientes extends javax.swing.JFrame {
     public class ManejadorJtable extends AbstractTableModel {
 
         long cc = Long.parseLong(txtCedula.getText());
-
+        
         @Override
         public int getRowCount() {
-
+     
             if (ccp.ConsulttarCliente(cc).isEmpty()) {
+                 jTable1.setModel((new DefaultTableModel()));
                 JOptionPane.showMessageDialog(null, "No Se Encontraron Reservaciones");
+                
             }
             return ccp.ConsulttarCliente(cc).size();
+          
         }
 
         @Override

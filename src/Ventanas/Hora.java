@@ -6,17 +6,30 @@
 package Ventanas;
 
 import Clases.CCP;
+import Clases.Reservacion;
 import Clases.Salones;
-import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.Date;
+import java.util.LinkedList;
+import javax.swing.JOptionPane;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Yoselin
  */
 public class Hora extends javax.swing.JFrame {
-     private CCP ccp;
+
+    private CCP ccp;
+    private Salones salon;
+    private LinkedList<Reservacion> res;
+    public LocalTime horaInicio;
+    public LocalTime Horafin;
+    public String Hora1;
+    public String Hora2;
+    private Date date;
 
     /**
      * Creates new form Hora
@@ -31,15 +44,24 @@ public class Hora extends javax.swing.JFrame {
         Date fech = dia.fe;
         String fechaCadena = sdf.format(fech);
         fecha.setText(fechaCadena);
+        date = fech;
+        System.out.println("Hola " + date);
 
         Salon s = new Salon(ccp);
         Salones sal = s.sa;
+        salon = sal;
+        System.out.println(sal.getNombre());
         txtSalon.setText(sal.toString());
-        
+
         txtSalon.setEditable(false);
         fecha.setEditable(false);
-    }
 
+        res = ccp.reservacionesHora(fecha.getText(), sal);
+
+        ManejadorJtable mj = new ManejadorJtable();
+        jTable1.setModel(mj);
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -50,6 +72,7 @@ public class Hora extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jSpinner1 = new javax.swing.JSpinner();
         jLabel1 = new javax.swing.JLabel();
         txtSalon = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -57,13 +80,15 @@ public class Hora extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
         siguiente = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
-        hinicio = new javax.swing.JTextField();
+        MinutoI = new javax.swing.JSpinner();
+        HoraI = new javax.swing.JSpinner();
+        HoraFi = new javax.swing.JSpinner();
+        MinutoFinal = new javax.swing.JSpinner();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -86,11 +111,7 @@ public class Hora extends javax.swing.JFrame {
 
         jLabel3.setText("Hora Inicio:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel4.setText("Hora Fin:");
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         siguiente.setText("Siguiente");
         siguiente.addActionListener(new java.awt.event.ActionListener() {
@@ -106,11 +127,20 @@ public class Hora extends javax.swing.JFrame {
             }
         });
 
-        try {
-            jFormattedTextField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        MinutoI.setModel(new javax.swing.SpinnerNumberModel(0, 0, 60, 2));
+        MinutoI.setNextFocusableComponent(HoraFi);
+
+        HoraI.setModel(new javax.swing.SpinnerNumberModel(9, 8, 20, 1));
+        HoraI.setNextFocusableComponent(MinutoI);
+
+        HoraFi.setModel(new javax.swing.SpinnerNumberModel(8, 8, 20, 1));
+        HoraFi.setNextFocusableComponent(MinutoFinal);
+
+        MinutoFinal.setModel(new javax.swing.SpinnerNumberModel(0, 0, 60, 1));
+
+        jLabel5.setText("Minutos:");
+
+        jLabel6.setText("Minutos:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -137,14 +167,21 @@ public class Hora extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel3)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jFormattedTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                                .addComponent(hinicio))
-                            .addGap(20, 20, 20)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(17, 17, 17)
+                                    .addComponent(HoraI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel5)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(MinutoI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(18, 18, 18)
+                                    .addComponent(HoraFi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel6)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(MinutoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -160,26 +197,23 @@ public class Hora extends javax.swing.JFrame {
                     .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(hinicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(MinutoI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(HoraI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(HoraFi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(MinutoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(siguiente)
                     .addComponent(jButton2))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
@@ -193,9 +227,56 @@ public class Hora extends javax.swing.JFrame {
     private void siguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siguienteActionPerformed
 
         if (this.ventana == null) {
-            this.ventana = new Reservaciones(ccp);
+            String Hi = Integer.toString((int) HoraI.getValue());
+            String mi = Integer.toString((int) MinutoI.getValue());
+            String hf = Integer.toString((int) HoraFi.getValue());
+            String mf = Integer.toString((int) MinutoFinal.getValue());
+            System.out.println("Este Es El Minuto" + (int) HoraI.getValue());
+
+            /////////////hora inicial/////////////
+            if ((int) HoraI.getValue() <= 9 && ((int) MinutoI.getValue() <= 9)) {
+                Hora1 = ("0" + Hi + ":" + "0" + mi + ":00");
+            } else {
+
+                if ((int) HoraI.getValue() > 9 && ((int) MinutoI.getValue() <= 9)) {
+                    Hora1 = (Hi + ":"
+                            + "0" + mi + ":00");
+                } else {
+                    if ((int) HoraI.getValue() <= 9 && ((int) MinutoI.getValue() > 9)) {
+                        Hora1 = ("0" + Hi + ":" + mi + ":00");
+                    } else {
+                        Hora1 = (Hi + ":" + mi + ":00");
+                    }
+
+                }
+
+            }
+
+            ///////////////////////////////hora final////////////////////
+            if ((int) HoraFi.getValue() <= 9 && ((int) MinutoFinal.getValue() <= 9)) {
+                Hora2 = ("0" + hf + ":" + "0" + mf + ":00");
+            } else {
+                if ((int) HoraFi.getValue() > 9 && ((int) MinutoFinal.getValue() <= 9)) {
+                    Hora2 = (hf + ":" + "0" + mf + ":00");
+                } else {
+                    if ((int) HoraFi.getValue() <= 9 && ((int) MinutoFinal.getValue() > 9)) {
+                        Hora2 = ("0" + hf + ":" + mf + ":00");
+
+                    } else {
+                        Hora2 = (hf + ":" + mf + ":00");
+                    }
+
+                }
+
+            }
+
+            System.out.println(Hora1);
+//             horaInicio = LocalTime.parse( Hora1);
+//            Horafin = LocalTime.parse(Hora2);
+            this.ventana = new Reservaciones(ccp, Hora1, Hora2, salon, date);
             this.ventana.setResizable(false);
             dispose();
+
         }
         ventana.setVisible(true);
 
@@ -205,21 +286,85 @@ public class Hora extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JSpinner HoraFi;
+    private javax.swing.JSpinner HoraI;
+    private javax.swing.JSpinner MinutoFinal;
+    private javax.swing.JSpinner MinutoI;
     private javax.swing.JTextField fecha;
-    private javax.swing.JTextField hinicio;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton siguiente;
     private javax.swing.JTextField txtSalon;
     // End of variables declaration//GEN-END:variables
+
+    public class ManejadorJtable extends AbstractTableModel {
+
+        @Override
+        public int getRowCount() {
+
+            if (res.isEmpty()) {
+                String[] nombreColumnas = {
+                    "Nombre Cliente", "Hora Inicio", "Hora Fin"
+                };
+                jTable1.setModel(new DefaultTableModel(nombreColumnas, 0));
+                JOptionPane.showMessageDialog(null, "La fecha "
+                        + fecha.getText()
+                        + " No tiene reservaciones");
+            }
+            return res.size();
+        }
+
+        @Override
+        public int getColumnCount() {
+            return 3;
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            Reservacion dc = ccp.reservacionesHora(fecha.getText(), salon).get(rowIndex);
+            Object valor = "";
+            switch (columnIndex) {
+                case 0:
+                    valor = dc.getCliente().getNombres();
+                    break;
+                case 1:
+                    valor = dc.getHora_fin();
+                    break;
+                case 2:
+                    valor = dc.getHora_inicio();
+                    break;
+
+            }
+            return valor;
+        }
+
+        private Class[] clases = {
+            String.class, LocalTime.class, LocalTime.class
+        };
+
+        @Override
+        public Class<?> getColumnClass(int columnIndex) {
+            return clases[columnIndex];
+        }
+
+        private String[] nombreColumnas = {
+            "Nombre Cliente", "Hora Inicio", "Hora Fin"
+        };
+
+        public String getColumnName(int columnIndex) {
+
+            return nombreColumnas[columnIndex];
+
+        }
+
+    }
 }

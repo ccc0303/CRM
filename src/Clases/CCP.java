@@ -5,7 +5,11 @@
  */
 package Clases;
 
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.Objects;
 
@@ -13,8 +17,6 @@ import java.util.Objects;
  *
  * @author Yoselin
  */
-
-
 public class CCP {
 
     private LinkedList<Cliente> clientes;
@@ -40,8 +42,8 @@ public class CCP {
         }
         throw new Exception("No Hay Ningun Cliente Con El Numero De Identificacion: " + ident);
     }
-    
-      public void AgregarCliente(Cliente c) throws Exception {
+
+    public void AgregarCliente(Cliente c) throws Exception {
         int i = 0;
         while (this.clientes.size() > i) {
             if (Objects.equals(this.clientes.get(i).getIdentificacion(), c.getIdentificacion())) {
@@ -60,15 +62,15 @@ public class CCP {
     public LinkedList<Reservacion> getReservaciones() {
         return reservaciones;
     }
-      
-      public void agregarTipoCliente(TipoCliente tc){
-          this.tipoClientes.add(tc);
-      }
-      
-      public  void agregarSalones(Salones s){
-          this.salones.add(s);
-          
-      }
+
+    public void agregarTipoCliente(TipoCliente tc) {
+        this.tipoClientes.add(tc);
+    }
+
+    public void agregarSalones(Salones s) {
+        this.salones.add(s);
+
+    }
 
     public LinkedList<Salones> getSalones() {
         return salones;
@@ -78,7 +80,7 @@ public class CCP {
         return tipoClientes;
     }
 
-      public void AgregarReservacion(Reservacion r) throws Exception {
+    public void AgregarReservacion(Reservacion r) throws Exception {
         int i = 0;
         while (this.reservaciones.size() > i) {
             if ((Objects.equals(this.reservaciones.get(i).getFecha_programada(), r.getFecha_programada()))
@@ -90,24 +92,48 @@ public class CCP {
         }
         this.reservaciones.add(r);
     }
-      
-  public LinkedList<Reservacion> ConsulttarCliente(Long cc) {
-      
-   LinkedList<Reservacion> reser = new LinkedList<>() ;
-    int i = 0;
-    
-    while (  this.reservaciones.size() > i )
-        if ( Objects.equals(this.reservaciones.get(i).getCliente().getIdentificacion(), cc)){
-           reser.add(this.reservaciones.get(i));
-           i++;
-        }else{
-            i = i + 1;
+
+    public LinkedList<Reservacion> ConsulttarCliente(Long cc) {
+
+        LinkedList<Reservacion> reser = new LinkedList<>();
+        int i = 0;
+
+        while (this.reservaciones.size() > i) {
+            if (Objects.equals(this.reservaciones.get(i).getCliente().getIdentificacion(), cc)) {
+                reser.add(this.reservaciones.get(i));
+                i++;
+            } else {
+                i = i + 1;
+            }
         }
-    return reser;
-  }
-      
-         
-      
+        return reser;
+    }
+
+    public LinkedList<Reservacion> reservacionesHora(String s, Salones sal) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        LinkedList<Reservacion> reser = new LinkedList<>();
+        int i = 0;
+
+        while (this.reservaciones.size() > i) {
+
+            Reservacion rs = this.reservaciones.get(i);
+            Date date = Date.from(rs.getFecha_programada().atStartOfDay(ZoneId.systemDefault()).toInstant());
+            String fechaCadena = sdf.format(date);
+            if ((s.equalsIgnoreCase(fechaCadena)
+                    && (sal.getNombre().equalsIgnoreCase(rs.getEvento().getSalon().getNombre())))) {
+
+                reser.add(rs);
+                i++;
+
+            } else {
+                i++;
+            }
+          
+
+        }
+          return reser;
+    }
+
 //      public LinkedList<Reservacion> buscarReservacion(Long ident) throws Exception{
 //          int i = 0;
 //        while (this.reservaciones.size() > i) {

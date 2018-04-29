@@ -81,5 +81,67 @@ public class Evento {
         return salon;
     }
     
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setResponsableEvento(String responsableEvento) {
+        this.responsableEvento = responsableEvento;
+    }
+
+    public void setNum_asistentes(int num_asistentes) {
+        this.num_asistentes = num_asistentes;
+    }
+
+    public void setHimnos(boolean himnos) {
+        this.himnos = himnos;
+    }
+
+    public void setManteles(boolean manteles) {
+        this.manteles = manteles;
+    }
+
+    public void setPapelografo(boolean papelografo) {
+        this.papelografo = papelografo;
+    }
+
+    public void setMesas(boolean mesas) {
+        this.mesas = mesas;
+    }
+
+    public void setSeñalizador(boolean señalizador) {
+        this.señalizador = señalizador;
+    }
+
+    public void setVideo_beam(boolean video_beam) {
+        this.video_beam = video_beam;
+    }
+
+    public void setPortatil(boolean portatil) {
+        this.portatil = portatil;
+    }
+
+    public void setTelon(boolean telon) {
+        this.telon = telon;
+    }
+
+    public void setMicrofono(boolean microfono) {
+        this.microfono = microfono;
+    }
+
+    public void setSilleteria(TipoSilleteria silleteria) {
+        this.silleteria = silleteria;
+    }
+
+    public void setIdResponsableEvento(Long idResponsableEvento) {
+        this.idResponsableEvento = idResponsableEvento;
+    }
+
+    public void setSalon(Salones salon) {
+        this.salon = salon;
+    }
+    
+    
  
 }

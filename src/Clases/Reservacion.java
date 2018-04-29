@@ -25,7 +25,9 @@ public class Reservacion {
         this.hora_fin = hora_fin;
         this.fecha_programada = fecha_programada;
         this.estado = true;
-        this.codigo = 1;
+        int numero = (int) (Math.random() * 100000) + 1;
+        int numero2 = (int) (Math.random() * 10000) + 1;
+        this.codigo = numero * numero2 ;
     }
 
     public int getCodigo() {
