@@ -6,6 +6,7 @@
 package Ventanas;
 
 import Clases.CCP;
+import com.toedter.calendar.JDayChooser;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
@@ -94,31 +95,26 @@ public class Dia extends javax.swing.JFrame {
     private void SiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SiguienteActionPerformed
 
         Date fecha = Calend.getDate();
- 
-        
-      //  System.out.println(fecha.getYear());
-        //    System.out.println(LocalDate.now().getYear());
-          //    System.out.println(fecha.getMonth());
-            //      System.out.println(LocalDate.now().getMonthValue());
-                   //gSystem.out.println(fecha.getDate());
-                //         System.out.println(LocalDate.now().getDayOfMonth());
-        if(((fecha.getYear() + 1900 == LocalDate.now().getYear())
-                && (fecha.getMonth() + 1 >= LocalDate.now().getMonthValue())
+
+        if (((fecha.getYear() + 1900 == LocalDate.now().getYear())
+                && (fecha.getMonth() + 1 == LocalDate.now().getMonthValue())
                 && (fecha.getDate() > LocalDate.now().getDayOfMonth()))
-             ||(fecha.getYear() + 1900 > LocalDate.now().getYear())){
-          fe = fecha;
-        if (this.ventana == null) {
-            this.ventana = new Hora(ccp);
-            this.ventana.setResizable(false);
-            dispose();
-        }
-        ventana.setVisible(true);
-  
-        }else{
+                || ((fecha.getYear() + 1900 == LocalDate.now().getYear())
+                && (fecha.getMonth() + 1 > LocalDate.now().getMonthValue()))
+                || (fecha.getYear() + 1900 > LocalDate.now().getYear())) {
+            fe = fecha;
+            if (this.ventana == null) {
+                this.ventana = new Hora(ccp);
+                this.ventana.setResizable(false);
+                dispose();
+                
+            }
+            ventana.setVisible(true);
+            
+        } else {
             JOptionPane.showMessageDialog(null, "Selecione una fecha correcta");
         }
-        System.out.println(fecha.getDay());
-        System.out.println(LocalDate.now().getDayOfMonth());
+        System.out.println(fe);
     }//GEN-LAST:event_SiguienteActionPerformed
 
 

@@ -17,7 +17,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
 import java.time.ZoneId;
-import static java.time.temporal.TemporalQueries.localDate;
 import java.util.Date;
 
 /**
@@ -28,6 +27,7 @@ public class Main {
 
     /**
      * @param args the command line arguments
+     * @throws java.lang.Exception
      */
     public static void main(String[] args) throws Exception {
         // TODO code application logic here
@@ -44,10 +44,13 @@ public class Main {
 
         Cliente c = new Cliente("oscarwwe4@gmail.com", 3207115241L, 1114838771L, "Oscar Chaves", tc4);
         Cliente c2 = new Cliente("osca4@gmail.com", 3116405309L, 1116275562L, "Cristian Cuero", tc4);
+        
         Evento e = new Evento("Reunion", "Cristian", 10, 1114838772L, s3);
-        Reservacion rs1 = new Reservacion(c2, e, LocalTime.parse("12:00:00"), LocalTime.parse("13:00:00"), LocalDate.of(2018, Month.APRIL, 29));
-        Reservacion rs = new Reservacion(c, e, LocalTime.parse("10:00:00"), LocalTime.parse("11:00:00"), LocalDate.of(2018, Month.APRIL, 29));
-        Reservacion rs2 = new Reservacion(c, e, LocalTime.parse("10:00:00"), LocalTime.parse("11:00:00"), LocalDate.of(2018, Month.APRIL, 30));
+        
+        Reservacion rs1 = new Reservacion(c2, e, LocalTime.parse("12:00:00"), LocalTime.parse("13:00:00"), LocalDate.of(2018, Month.MAY, 29));
+        Reservacion rs = new Reservacion(c, e, LocalTime.parse("10:00:00"), LocalTime.parse("11:00:00"), LocalDate.of(2018, Month.MAY, 29));
+        Reservacion rs2 = new Reservacion(c, e, LocalTime.parse("10:00:00"), LocalTime.parse("11:00:00"), LocalDate.of(2018, Month.MAY, 30));
+        
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         Date date = Date.from(rs.getFecha_programada().atStartOfDay(ZoneId.systemDefault()).toInstant());
         // String fechaCadena = sdf.format(date);

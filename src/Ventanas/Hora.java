@@ -8,6 +8,7 @@ package Ventanas;
 import Clases.CCP;
 import Clases.Reservacion;
 import Clases.Salones;
+import static Ventanas.Dia.fe;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.Date;
@@ -30,6 +31,7 @@ public class Hora extends javax.swing.JFrame {
     public String Hora1;
     public String Hora2;
     private Date date;
+    private Date fech;
 
     /**
      * Creates new form Hora
@@ -41,11 +43,13 @@ public class Hora extends javax.swing.JFrame {
 
         Dia dia = new Dia(ccp);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        Date fech = dia.fe;
+        fech = dia.fe;
         String fechaCadena = sdf.format(fech);
+
         fecha.setText(fechaCadena);
-        date = fech;
-        System.out.println("Hola " + date);
+        fecha.updateUI();
+        
+        System.out.println("Hola " + fech);
 
         Salon s = new Salon(ccp);
         Salones sal = s.sa;
@@ -54,7 +58,7 @@ public class Hora extends javax.swing.JFrame {
         txtSalon.setText(sal.toString());
 
         txtSalon.setEditable(false);
-        fecha.setEditable(false);
+        //fecha.setEditable(false);
 
         res = ccp.reservacionesHora(fecha.getText(), sal);
 
@@ -62,6 +66,8 @@ public class Hora extends javax.swing.JFrame {
         jTable1.setModel(mj);
 
     }
+    Salon s = new Salon(ccp);
+    Dia d = s.ventana;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -82,7 +88,7 @@ public class Hora extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         siguiente = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnAnterior = new javax.swing.JButton();
         MinutoI = new javax.swing.JSpinner();
         HoraI = new javax.swing.JSpinner();
         HoraFi = new javax.swing.JSpinner();
@@ -120,10 +126,10 @@ public class Hora extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Anterior");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnAnterior.setText("Anterior");
+        btnAnterior.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnAnteriorActionPerformed(evt);
             }
         });
 
@@ -150,7 +156,7 @@ public class Hora extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(btnAnterior)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(siguiente))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,16 +218,22 @@ public class Hora extends javax.swing.JFrame {
                 .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(siguiente)
-                    .addComponent(jButton2))
+                    .addComponent(btnAnterior))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
+
+        //fech = null;
+        fech = null;
+        fecha.updateUI();
+        dispose();
+        d.setVisible(true);
+
+    }//GEN-LAST:event_btnAnteriorActionPerformed
 
     private Reservaciones ventana = null;
     private void siguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siguienteActionPerformed
@@ -291,8 +303,8 @@ public class Hora extends javax.swing.JFrame {
     private javax.swing.JSpinner HoraI;
     private javax.swing.JSpinner MinutoFinal;
     private javax.swing.JSpinner MinutoI;
+    private javax.swing.JButton btnAnterior;
     private javax.swing.JTextField fecha;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -316,9 +328,9 @@ public class Hora extends javax.swing.JFrame {
                     "Nombre Cliente", "Hora Inicio", "Hora Fin"
                 };
                 jTable1.setModel(new DefaultTableModel(nombreColumnas, 0));
-                JOptionPane.showMessageDialog(null, "La fecha "
-                        + fecha.getText()
-                        + " No tiene reservaciones");
+//                JOptionPane.showMessageDialog(null, "La fecha "
+//                        + fecha.getText()
+//                        + " No tiene reservaciones");
             }
             return res.size();
         }

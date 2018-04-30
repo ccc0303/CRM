@@ -25,6 +25,8 @@ public class Salon extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
     public static Salones sa;
+    
+    public static Dia ventana = null; 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -138,7 +140,6 @@ public class Salon extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_Salon205ActionPerformed
 
-    Dia ventana = null;
     private void AuditorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AuditorioActionPerformed
 
         if (this.ventana == null) {
