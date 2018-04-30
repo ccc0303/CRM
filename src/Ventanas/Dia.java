@@ -6,9 +6,7 @@
 package Ventanas;
 
 import Clases.CCP;
-import com.toedter.calendar.JDayChooser;
 import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
@@ -19,6 +17,7 @@ import javax.swing.JOptionPane;
 public class Dia extends javax.swing.JFrame {
 
     private CCP ccp;
+    public static Date fe;
 
     /**
      * Creates new form Dia
@@ -31,8 +30,9 @@ public class Dia extends javax.swing.JFrame {
     }
     CamaraGUI cg = new CamaraGUI(ccp);
     Salon ven = cg.v;
-    public static Date fe;
 
+//    Salon s = new Salon(ccp);
+//    Salones sele = s.sa;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,7 +46,7 @@ public class Dia extends javax.swing.JFrame {
         btnAnterior = new javax.swing.JButton();
         Siguiente = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnAnterior.setText("Anterior");
         btnAnterior.addActionListener(new java.awt.event.ActionListener() {
@@ -103,14 +103,10 @@ public class Dia extends javax.swing.JFrame {
                 && (fecha.getMonth() + 1 > LocalDate.now().getMonthValue()))
                 || (fecha.getYear() + 1900 > LocalDate.now().getYear())) {
             fe = fecha;
-            if (this.ventana == null) {
-                this.ventana = new Hora(ccp);
-                this.ventana.setResizable(false);
-                dispose();
-                
-            }
+            this.ventana = new Hora(ccp);
+            this.ventana.setResizable(false);
+            dispose();
             ventana.setVisible(true);
-            
         } else {
             JOptionPane.showMessageDialog(null, "Selecione una fecha correcta");
         }
@@ -131,4 +127,5 @@ public class Dia extends javax.swing.JFrame {
     private javax.swing.JButton Siguiente;
     private javax.swing.JButton btnAnterior;
     // End of variables declaration//GEN-END:variables
+
 }

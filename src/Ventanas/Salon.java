@@ -15,6 +15,8 @@ import Clases.Salones;
 public class Salon extends javax.swing.JFrame {
 
     private CCP ccp;
+    public static Dia ventana = null;
+    public static Salones sa;
 
     /**
      * Creates new form Salon
@@ -24,9 +26,6 @@ public class Salon extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
     }
-    public static Salones sa;
-    
-    public static Dia ventana = null; 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -106,48 +105,42 @@ public class Salon extends javax.swing.JFrame {
 
     private void SalonMeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalonMeActionPerformed
 
-        if (this.ventana == null) {
-            this.ventana = new Dia(ccp);
-            this.ventana.setResizable(false);
-            dispose();
-            sa = ccp.getSalones().get(3);
-        }
+        this.ventana = new Dia(ccp);
+        this.ventana.setResizable(false);
+        dispose();
+        sa = ccp.getSalones().get(3);
         ventana.setVisible(true);
         dispose();
 
     }//GEN-LAST:event_SalonMeActionPerformed
 
     private void SalonReunionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalonReunionActionPerformed
-        if (this.ventana == null) {
-            this.ventana = new Dia(ccp);
-            this.ventana.setResizable(false);
-            dispose();
-            sa = ccp.getSalones().get(2);
-        }
+
+        this.ventana = new Dia(ccp);
+        this.ventana.setResizable(false);
+        dispose();
+        sa = ccp.getSalones().get(2);
         ventana.setVisible(true);
         dispose();
 
     }//GEN-LAST:event_SalonReunionActionPerformed
 
     private void Salon205ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Salon205ActionPerformed
-        if (this.ventana == null) {
-            this.ventana = new Dia(ccp);
-            this.ventana.setResizable(false);
-            dispose();
-            sa = ccp.getSalones().get(0);
-        }
+
+        this.ventana = new Dia(ccp);
+        this.ventana.setResizable(false);
+        dispose();
+        sa = ccp.getSalones().get(0);
         ventana.setVisible(true);
         dispose();
     }//GEN-LAST:event_Salon205ActionPerformed
 
     private void AuditorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AuditorioActionPerformed
 
-        if (this.ventana == null) {
-            this.ventana = new Dia(ccp);
-            this.ventana.setResizable(false);
-            dispose();
-            sa = ccp.getSalones().get(1);
-                    }
+        this.ventana = new Dia(ccp);
+        this.ventana.setResizable(false);
+        dispose();
+        sa = ccp.getSalones().get(1);
         ventana.setVisible(true);
         dispose();
     }//GEN-LAST:event_AuditorioActionPerformed
