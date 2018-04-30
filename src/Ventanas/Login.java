@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class Login extends javax.swing.JFrame {
 
-    private String contraseña = "oscar1234";
+    private String contraseña = "";
     private CCP ccp;
 
     /**
