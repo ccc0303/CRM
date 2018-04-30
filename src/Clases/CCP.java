@@ -134,16 +134,4 @@ public class CCP {
           return reser;
     }
 
-//      public LinkedList<Reservacion> buscarReservacion(Long ident) throws Exception{
-//          int i = 0;
-//        while (this.reservaciones.size() > i) {
-//            if ((Objects.equals(this.reservaciones.get(i).getCliente().getIdentificacion(), ident))) {
-//                this.reservaciones.get(i); 
-//                i++;
-//            } else {
-//               i++;
-//            }
-//        }
-//      
-//      }
 }

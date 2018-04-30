@@ -6,8 +6,10 @@
 package Ventanas;
 
 import Clases.CCP;
+import java.awt.Button;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JMenuItem;
 
 /**
  *
@@ -16,6 +18,7 @@ import java.awt.event.ActionListener;
 public class CamaraGUI extends javax.swing.JFrame {
 
     private CCP ccp;
+    
 
     public CamaraGUI(CCP c) {
         this.ccp = c;
@@ -153,7 +156,7 @@ public class CamaraGUI extends javax.swing.JFrame {
         if (this.v == null) {
             this.v = new Salon(ccp);
             this.v.setResizable(false);
-        } 
+        }
         v.setVisible(true);
         
     }//GEN-LAST:event_opcionRegistrarReservacionActionPerformed

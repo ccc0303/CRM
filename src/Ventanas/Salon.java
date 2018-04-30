@@ -7,6 +7,7 @@ package Ventanas;
 
 import Clases.CCP;
 import Clases.Salones;
+import javax.swing.JMenuItem;
 
 /**
  *

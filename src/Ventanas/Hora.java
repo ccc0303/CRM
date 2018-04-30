@@ -14,6 +14,7 @@ import java.time.LocalTime;
 import java.util.Date;
 import java.util.LinkedList;
 import javax.swing.JFrame;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
@@ -27,11 +28,11 @@ public class Hora extends javax.swing.JFrame {
     private CCP ccp;
     private Salones salon;
     private LinkedList<Reservacion> res;
-//    public LocalTime horaInicio;
-//    public LocalTime Horafin;
-//    public String Hora1;
-//    public String Hora2;
-//    private Date date;
+    public LocalTime horaInicio;
+    public LocalTime Horafin;
+    public String Hora1;
+    public String Hora2;
+    private Date date;
     private Date fech;
 
     /**
@@ -56,8 +57,9 @@ public class Hora extends javax.swing.JFrame {
 
         salon = sal;
 
-        // txtSalon.setEditable(false);
-        //fecha.setEditable(false);
+        txtSalon.setEditable(false);
+        fecha.setEditable(false);
+
         res = ccp.reservacionesHora(fecha.getText(), sal);
 
         ManejadorJtable mj = new ManejadorJtable();
@@ -229,62 +231,62 @@ public class Hora extends javax.swing.JFrame {
         di.setVisible(true);
     }//GEN-LAST:event_btnAnteriorActionPerformed
 
-//    private Reservaciones ventana = null;
+    private Reservaciones ventana = null;
     private void siguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siguienteActionPerformed
-//
-//        if (this.ventana == null) {
-//            String Hi = Integer.toString((int) HoraI.getValue());
-//            String mi = Integer.toString((int) MinutoI.getValue());
-//            String hf = Integer.toString((int) HoraFi.getValue());
-//            String mf = Integer.toString((int) MinutoFinal.getValue());
-//            System.out.println("Este Es El Minuto" + (int) HoraI.getValue());
-//
-//            /////////////hora inicial/////////////
-//            if ((int) HoraI.getValue() <= 9 && ((int) MinutoI.getValue() <= 9)) {
-//                Hora1 = ("0" + Hi + ":" + "0" + mi + ":00");
-//            } else {
-//
-//                if ((int) HoraI.getValue() > 9 && ((int) MinutoI.getValue() <= 9)) {
-//                    Hora1 = (Hi + ":"
-//                            + "0" + mi + ":00");
-//                } else {
-//                    if ((int) HoraI.getValue() <= 9 && ((int) MinutoI.getValue() > 9)) {
-//                        Hora1 = ("0" + Hi + ":" + mi + ":00");
-//                    } else {
-//                        Hora1 = (Hi + ":" + mi + ":00");
-//                    }
-//
-//                }
-//
-//            }
-//
-//            ///////////////////////////////hora final////////////////////
-//            if ((int) HoraFi.getValue() <= 9 && ((int) MinutoFinal.getValue() <= 9)) {
-//                Hora2 = ("0" + hf + ":" + "0" + mf + ":00");
-//            } else {
-//                if ((int) HoraFi.getValue() > 9 && ((int) MinutoFinal.getValue() <= 9)) {
-//                    Hora2 = (hf + ":" + "0" + mf + ":00");
-//                } else {
-//                    if ((int) HoraFi.getValue() <= 9 && ((int) MinutoFinal.getValue() > 9)) {
-//                        Hora2 = ("0" + hf + ":" + mf + ":00");
-//
-//                    } else {
-//                        Hora2 = (hf + ":" + mf + ":00");
-//                    }
-//
-//                }
-//
-//            }
-//
-//            System.out.println(Hora1);
-////             horaInicio = LocalTime.parse( Hora1);
-////            Horafin = LocalTime.parse(Hora2);
-//            this.ventana = new Reservaciones(ccp, Hora1, Hora2, salon, date);
-//            this.ventana.setResizable(false);
-//            dispose();
-//
-//        }
-//        ventana.setVisible(true);
+
+        if (this.ventana == null) {
+            String Hi = Integer.toString((int) HoraI.getValue());
+            String mi = Integer.toString((int) MinutoI.getValue());
+            String hf = Integer.toString((int) HoraFi.getValue());
+            String mf = Integer.toString((int) MinutoFinal.getValue());
+            System.out.println("Este Es El Minuto" + (int) HoraI.getValue());
+
+            /////////////hora inicial/////////////
+            if ((int) HoraI.getValue() <= 9 && ((int) MinutoI.getValue() <= 9)) {
+                Hora1 = ("0" + Hi + ":" + "0" + mi + ":00");
+            } else {
+
+                if ((int) HoraI.getValue() > 9 && ((int) MinutoI.getValue() <= 9)) {
+                    Hora1 = (Hi + ":"
+                            + "0" + mi + ":00");
+                } else {
+                    if ((int) HoraI.getValue() <= 9 && ((int) MinutoI.getValue() > 9)) {
+                        Hora1 = ("0" + Hi + ":" + mi + ":00");
+                    } else {
+                        Hora1 = (Hi + ":" + mi + ":00");
+                    }
+
+                }
+
+            }
+
+            ///////////////////////////////hora final////////////////////
+            if ((int) HoraFi.getValue() <= 9 && ((int) MinutoFinal.getValue() <= 9)) {
+                Hora2 = ("0" + hf + ":" + "0" + mf + ":00");
+            } else {
+                if ((int) HoraFi.getValue() > 9 && ((int) MinutoFinal.getValue() <= 9)) {
+                    Hora2 = (hf + ":" + "0" + mf + ":00");
+                } else {
+                    if ((int) HoraFi.getValue() <= 9 && ((int) MinutoFinal.getValue() > 9)) {
+                        Hora2 = ("0" + hf + ":" + mf + ":00");
+
+                    } else {
+                        Hora2 = (hf + ":" + mf + ":00");
+                    }
+
+                }
+
+            }
+
+            System.out.println(Hora1);
+            horaInicio = LocalTime.parse(Hora1);
+            Horafin = LocalTime.parse(Hora2);
+            this.ventana = new Reservaciones(ccp, Hora1, Hora2, salon, date);
+            this.ventana.setResizable(false);
+            dispose();
+
+        }
+        ventana.setVisible(true);
 
 
     }//GEN-LAST:event_siguienteActionPerformed
@@ -318,13 +320,8 @@ public class Hora extends javax.swing.JFrame {
         public int getRowCount() {
 
             if (res.isEmpty()) {
-                String[] nombreColumnas = {
-                    "Nombre Cliente", "Hora Inicio", "Hora Fin"
-                };
-                jTable1.setModel(new DefaultTableModel(nombreColumnas, 0));
-//                JOptionPane.showMessageDialog(null, "La fecha "
-//                        + fecha.getText()
-//                        + " No tiene reservaciones");
+                jTable1.setModel((new DefaultTableModel()));
+                JOptionPane.showMessageDialog(null, "No Se Encontraron Reservaciones");
             }
             return res.size();
         }
@@ -336,17 +333,17 @@ public class Hora extends javax.swing.JFrame {
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
-            Reservacion dc = ccp.reservacionesHora(fecha.getText(), salon).get(rowIndex);
+            Reservacion dc = res.get(rowIndex);
             Object valor = "";
             switch (columnIndex) {
                 case 0:
                     valor = dc.getCliente().getNombres();
                     break;
                 case 1:
-                    valor = dc.getHora_fin();
+                    valor = dc.getHora_inicio();
                     break;
                 case 2:
-                    valor = dc.getHora_inicio();
+                    valor = dc.getHora_fin();
                     break;
 
             }
