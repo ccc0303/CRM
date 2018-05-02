@@ -6,6 +6,7 @@
 package Clases;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -108,6 +109,24 @@ public class CCP {
         }
         return reser;
     }
+    
+    public LinkedList<Reservacion> ConsulttarReservacionesDisponibles(Long cc) {
+
+        LinkedList<Reservacion> reser = new LinkedList<>();
+        int i = 0;
+
+        while (this.reservaciones.size() > i) {
+            if ((Objects.equals(this.reservaciones.get(i).getCliente().getIdentificacion(), cc))
+                    &&(this.reservaciones.get(i).getFecha_programada().isAfter(LocalDate.now()))
+                        &&(this.reservaciones.get(i).isEstado())) {
+                reser.add(this.reservaciones.get(i));
+                i++;
+            } else {
+                i = i + 1;
+            }
+        }
+        return reser;
+    }
 
     public LinkedList<Reservacion> reservacionesHora(String s, Salones sal) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -134,4 +153,5 @@ public class CCP {
           return reser;
     }
 
+    
 }

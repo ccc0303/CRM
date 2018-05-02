@@ -5,12 +5,13 @@
  */
 package Ventanas;
 
-
 import Clases.CCP;
 import Clases.Cliente;
 import Clases.Reservacion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
@@ -22,12 +23,24 @@ import javax.swing.table.DefaultTableModel;
  */
 public class CancelarR_GUI extends javax.swing.JDialog {
 
-     private CCP ccp;
+    private CCP ccp;
 
     public CancelarR_GUI(CCP c) {
         this.ccp = c;
-        initComponents(); 
+        initComponents();
         this.setLocationRelativeTo(null);
+
+        ManejadorBuscar mb = new ManejadorBuscar();
+        botonBuscar.addActionListener(mb);
+        txt_Identificacion.addActionListener(mb);
+
+        ManejadorCancelar mc = new ManejadorCancelar();
+        botonCancelar.addActionListener(mc);
+
+        ManejadorCancelarReservacion mcr = new ManejadorCancelarReservacion();
+        botonCancelarReservacion.addActionListener(mcr);
+        
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -263,159 +276,144 @@ public class CancelarR_GUI extends javax.swing.JDialog {
     private javax.swing.JTextField txt_Tipo1;
     // End of variables declaration//GEN-END:variables
 
-   
-//    private int tamaño;
-//    public class ManejadorBuscar implements ActionListener {
-//
-//        
-//        @Override
-//        public void actionPerformed(ActionEvent e) {
-//            try {
-//                Long identificacion = Long.parseLong(txt_Identificacion.getText());
-//                Cliente soli = cm.buscarc(identificacion);
-//                txt_Nombre.setText(soli.getNombre());
-//                txt_Telefono.setText(Long.toString(soli.getTelefono()));
-//
-//                ManejadorTableModel mtm = new ManejadorTableModel();
-//                txt_Tabla.setModel(mtm);
-//                txt_Tabla.setAutoCreateRowSorter(true);
-//
-//                botonCancelarReservacion.setEnabled(true);
-//
-//            } catch (NumberFormatException nfe) {
-//                JOptionPane.showMessageDialog(null, "Ingrese Un Codigo Valido");
-//            } catch (IllegalArgumentException iae) {
-//                JOptionPane.showMessageDialog(null, iae.getMessage());
-//            } catch (Exception ex) {
-//                    JOptionPane.showMessageDialog(null, ex.getMessage());
-//            }
-//        }
-//    }
-//private Object rv;
-//private long res;
-//    public class ManejadorTableModel extends AbstractTableModel {
-//        
-//        Long identificacion = Long.parseLong(txt_Identificacion.getText());
-//        
-//        @Override
-//        public int getRowCount() {
-//            res = identificacion;
-//            try 
-//             {
-//                if (cm.busscare(identificacion).isEmpty()) {
-//                    
-//                        txt_Tabla.setModel((new DefaultTableModel()));
-//                        JOptionPane.showMessageDialog(null, "No Se Encontraron Reservaciones");
-//                    }
-//                
-//                    
-//                
-//               
-//            } catch (Exception ex) {
-//                    JOptionPane.showMessageDialog(null, ex.getMessage());
-//            }
-//            try {
-//                tamaño = cm.busscare(identificacion).size();
-//            } catch (Exception ex) {
-//                    JOptionPane.showMessageDialog(null, ex.getMessage());
-//            }
-//            return tamaño;
-//        }
-//
-//        @Override
-//        public int getColumnCount() {
-//            return 5;
-//        }
-//
-//        @Override
-//        public Object getValueAt(int rowIndex, int columnIndex) {
-//            try {
-//                Reservacion reserva1 = (Reservacion) cm.busscare(identificacion).get(rowIndex);
-//                Object valor = "";
-//                switch (columnIndex) {
-//                    case 0:
-//                        valor = reserva1.getEvento().getNombre();
-//                        break;
-//                    case 1:
-//                        valor = reserva1.getSalon().getNombre();
-//                        break;
-//                    case 2:
-//                        valor = reserva1.getFecha_solicitud();
-//                        break;
-//                    case 3:
-//                        valor = reserva1.getHora_inicio().toString();
-//                        break;
-//                    case 4:
-//                        valor = reserva1.getHora_fin().toString();
-//                        break;
-//                }
-//                rv = valor;
-//                return valor;
-//            } catch (Exception ex) {
-//                    JOptionPane.showMessageDialog(null, ex.getMessage());
-//            }
-//           return rv;   
-//        }
-//
-//        private Class[] clases = {
-//            String.class, String.class, Date.class, String.class, String.class
-//        };
-//
-//        @Override
-//        public Class<?> getColumnClass(int columnIndex) {
-//            return clases[columnIndex];
-//        }
-//
-//        private String[] nombreColumnas = {
-//            "Evento", "Salon", "Fecha Solicitud", "Hora Inicio", "Hora Fin"
-//        };
-//
-//        @Override
-//        public String getColumnName(int column) {
-//            return nombreColumnas[column];
-//        }
-//     
-//    }
-//
-//    public class ManejadorCancelarReservacion implements ActionListener {
-//
-//        @Override
-//        public void actionPerformed(ActionEvent e) {
-//            try {
-//                
-//                   
-//                
-//                int fila = txt_Tabla.getSelectedRow();
-//                Reservacion re = cm.busscare(res).get(fila);
-//                cm.actualizaresevacon(re.getCodigo(), false);
-//               
-//                
-//                txt_Tabla.updateUI();
-//
-//            } catch (NumberFormatException nfe) {
-//                JOptionPane.showMessageDialog(null, "Ingrese Un Valor Numerico Valido");
-//            } catch (IllegalArgumentException iae) {
-//                JOptionPane.showMessageDialog(null, iae.getMessage());
-//            } catch (Exception ex) {
-//                    JOptionPane.showMessageDialog(null, ex.getMessage());
-//            }
-//
-//        }
-//
-//    }
-//
-//    public class ManejadorCancelar implements ActionListener {
-//
-//        @Override
-//        public void actionPerformed(ActionEvent e) {
-//            txt_Identificacion.setText("");
-//            txt_Nombre.setText("");
-//            txt_Tabla.setModel((new DefaultTableModel()));
-//            txt_Tabla.updateUI();
-//            txt_Telefono.setText("");
-//            txt_Tipo.setText("");
-//            botonCancelarReservacion.setEnabled(false);
-//        }
-//
-//    }
+    public class ManejadorBuscar implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                Long identificacion = Long.parseLong(txt_Identificacion.getText());
+                Cliente soli = ccp.buscarCliente(identificacion);
+                txt_Nombre.setText(soli.getNombres());
+                txt_Telefono.setText(Long.toString(soli.getTelefono()));
+                txt_Tipo1.setText(soli.getEmail());
+
+                ManejadorJtable mtm = new ManejadorJtable();
+                txt_Tabla.setModel(mtm);
+                
+                 if (ccp.ConsulttarReservacionesDisponibles(identificacion).isEmpty()) {
+                    botonCancelarReservacion.setEnabled(false);
+                }else{
+                   botonCancelarReservacion.setEnabled(true);  
+                 }   
+                txt_Identificacion.setEditable(false);
+
+            } catch (NumberFormatException nfe) {
+                JOptionPane.showMessageDialog(null, "Ingrese Un N° de Identifacion Valida");
+            } catch (IllegalArgumentException iae) {
+                JOptionPane.showMessageDialog(null, iae.getMessage());
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+        }
+    }
+
+    public class ManejadorJtable extends AbstractTableModel {
+
+        Long identificacion = Long.parseLong(txt_Identificacion.getText());
+
+        @Override
+        public int getRowCount() {
+            return ccp.ConsulttarReservacionesDisponibles(identificacion).size();
+        }
+
+        @Override
+        public int getColumnCount() {
+            return 7;
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            Reservacion dc = ccp.ConsulttarReservacionesDisponibles(identificacion).get(rowIndex);
+            Object valor = "";
+            switch (columnIndex) {
+                case 0:
+                    valor = dc.getEvento().getNombre();
+                    break;
+                case 1:
+                    valor = dc.getCliente().getNombres();
+                    break;
+                case 2:
+                    valor = dc.getEvento().getSalon().getNombre();
+                    break;
+                case 3:
+                    valor = dc.getFecha_programada();
+                    break;
+                case 4:
+                    valor = dc.getHora_inicio();
+                    break;
+                case 5:
+                    valor = dc.getHora_fin();
+                    break;
+                case 6:
+                    valor = dc.getEvento().getNum_asistentes();
+                    break;
+
+            }
+            return valor;
+        }
+
+        private Class[] clases = {
+            String.class, String.class, String.class, LocalDate.class, LocalTime.class, LocalTime.class, int.class
+        };
+
+        @Override
+        public Class<?> getColumnClass(int columnIndex) {
+            return clases[columnIndex];
+        }
+
+        private String[] nombreColumnas = {
+            "Evento", "Cliente", "Salon", "Fecha", "Hora Inicio", "Hora Fin", "N° Asistentes"
+        };
+
+        public String getColumnName(int columnIndex) {
+
+            return nombreColumnas[columnIndex];
+
+        }
+
+    }
+
+    public class ManejadorCancelarReservacion implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int msj = JOptionPane.showConfirmDialog(null, "Desea Cancelar La Reservacion");
+
+            if (msj == JOptionPane.YES_OPTION) {
+                Long identificacion = Long.parseLong(txt_Identificacion.getText());
+                int fila = txt_Tabla.getSelectedRow();     
+                 if (ccp.ConsulttarReservacionesDisponibles(identificacion).size() == 1 ) {
+                    botonCancelarReservacion.setEnabled(false);
+                }
+                Reservacion re = ccp.ConsulttarReservacionesDisponibles(identificacion).get(fila);
+                re.setEstado(false);
+                txt_Tabla.updateUI();
+
+            }
+            if (msj == JOptionPane.NO_OPTION) {
+            }
+
+            if (msj == JOptionPane.CLOSED_OPTION) {
+            }
+
+        }
+
+    }
+
+    public class ManejadorCancelar implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            txt_Identificacion.setText("");
+            txt_Nombre.setText("");
+            txt_Tabla.setModel((new DefaultTableModel()));
+            txt_Tabla.updateUI();
+            txt_Telefono.setText("");
+            txt_Tipo1.setText("");
+            botonCancelarReservacion.setEnabled(false);
+            txt_Identificacion.setEditable(true);
+            
+        }
+
+    }
 }
