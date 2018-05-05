@@ -321,7 +321,6 @@ public class Hora extends javax.swing.JFrame {
 
             if (res.isEmpty()) {
                 jTable1.setModel((new DefaultTableModel()));
-                JOptionPane.showMessageDialog(null, "No Se Encontraron Reservaciones");
             }
             return res.size();
         }
