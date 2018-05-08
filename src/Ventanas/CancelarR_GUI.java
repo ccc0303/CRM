@@ -40,7 +40,8 @@ public class CancelarR_GUI extends javax.swing.JDialog {
         ManejadorCancelarReservacion mcr = new ManejadorCancelarReservacion();
         botonCancelarReservacion.addActionListener(mcr);
         
-        //Cristian
+
+
     }
 
     @SuppressWarnings("unchecked")
