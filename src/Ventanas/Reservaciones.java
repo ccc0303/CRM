@@ -10,6 +10,7 @@ import Clases.Cliente;
 import Clases.Evento;
 import Clases.Reservacion;
 import Clases.Salones;
+import Clases.TipoCliente;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Time;
@@ -31,7 +32,7 @@ import javax.swing.event.ListDataListener;
 public class Reservaciones extends javax.swing.JFrame {
 
     private CCP ccp;
-    private Cliente c1;
+    private Cliente c1 = null;
     private Salones s;
     private String Hora1, Hora2;
     private Date fecha;
@@ -54,12 +55,14 @@ public class Reservaciones extends javax.swing.JFrame {
         s = salon;
         manejadorregistraEvento mv = new manejadorregistraEvento();
         RegistrarBu.addActionListener(mv);
+        System.out.println(date1);
 
         Date date = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         String fechaCadena = sdf.format(date);
-        String fechaCadenap = sdf.format(date1);
         fecha = date1;
+        String fechaCadenap = sdf.format(date1);
+
         System.out.println("Hora " + fecha);
         FechaSolicitud.setText(fechaCadena);
         FechaProgra.setText(fechaCadenap);
@@ -74,6 +77,9 @@ public class Reservaciones extends javax.swing.JFrame {
         manejadorcancelar mc = new manejadorcancelar();
         CancelarB.addActionListener(mc);
     }
+
+    Dia d = new Dia(ccp);
+    Hora h = d.ventana;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -99,6 +105,8 @@ public class Reservaciones extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         BuscarBoton = new javax.swing.JButton();
+        jLabel19 = new javax.swing.JLabel();
+        Email = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         NumeroAsistente = new javax.swing.JTextField();
@@ -201,6 +209,14 @@ public class Reservaciones extends javax.swing.JFrame {
 
         BuscarBoton.setText("Buscar");
 
+        jLabel19.setText("Email:");
+
+        Email.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EmailActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -224,13 +240,17 @@ public class Reservaciones extends javax.swing.JFrame {
                                     .addComponent(CC))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(32, 32, 32)
-                                        .addComponent(jLabel4)
                                         .addGap(18, 18, 18)
-                                        .addComponent(Telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(BuscarBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(32, 32, 32)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel4)
+                                            .addComponent(jLabel19))
                                         .addGap(18, 18, 18)
-                                        .addComponent(BuscarBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(Telefono, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                                            .addComponent(Email))))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,9 +279,16 @@ public class Reservaciones extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(Telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel19)
+                            .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Informacion Evento"));
@@ -389,16 +416,13 @@ public class Reservaciones extends javax.swing.JFrame {
                     .addComponent(hinicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel15)
-                            .addComponent(Fin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(46, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(TxtSalon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(46, Short.MAX_VALUE))))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel15)
+                        .addComponent(Fin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel10)
+                        .addComponent(TxtSalon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Infromacion Implementos"));
@@ -514,6 +538,11 @@ public class Reservaciones extends javax.swing.JFrame {
         CancelarB.setText("Cancelar");
 
         jButton3.setText("Anterior");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         RegistrarBu.setText("Registrar");
 
@@ -614,6 +643,16 @@ public class Reservaciones extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TxtSalonActionPerformed
 
+    private void EmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EmailActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+
+        dispose();
+        h.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -622,6 +661,7 @@ public class Reservaciones extends javax.swing.JFrame {
     private javax.swing.JButton BuscarBoton;
     private javax.swing.JTextField CC;
     private javax.swing.JButton CancelarB;
+    private javax.swing.JTextField Email;
     private javax.swing.JTextField FechaProgra;
     private javax.swing.JTextField FechaSolicitud;
     private javax.swing.JTextField Fin;
@@ -653,6 +693,7 @@ public class Reservaciones extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
@@ -676,26 +717,63 @@ public class Reservaciones extends javax.swing.JFrame {
     private javax.swing.JCheckBox pape;
     private javax.swing.JCheckBox señali;
     // End of variables declaration//GEN-END:variables
+
+    private int si = 20;
+
     public class ManejadorBuscar implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
+                c1 = null;
                 Long identificacion = Long.parseLong(CC.getText());
                 Cliente c = ccp.buscarCliente(identificacion);
                 c1 = c;
+                Cliente C2 = c;
                 NombreSol.setText(c.getNombres());
+                NombreSol.setEditable(false);
                 Telefono.setText(Long.toString(c.getTelefono()));
+                Telefono.setEditable(false);
+                Email.setText(c1.getEmail());
+                Email.setEditable(false);
                 selecionado = c.getTipo_cliente();
                 jComboBox1.updateUI();
                 jComboBox1.enable(false);
+
+                if (c1 == null) {
+                    int ms = JOptionPane.showConfirmDialog(null, "El Solicitante Con Numero " + CC.getText()
+                            + " No Se Encuentra Registrado ¿ desea Registrarlo ?",
+                            "Cliente No Encontado",
+                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                }
 
             } catch (NumberFormatException nfe) {
                 JOptionPane.showMessageDialog(null, "Ingrese Un Codigo Valido");
             } catch (IllegalArgumentException iae) {
                 JOptionPane.showMessageDialog(null, iae.getMessage());
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage());
+                if (c1 == null) {
+                    si = JOptionPane.showConfirmDialog(null, "El Solicitante Con Numero " + CC.getText()
+                            + " No Se Encuentra Registrado ¿ desea Registrarlo ?",
+                            "Cliente No Encontado",
+                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if (si == JOptionPane.NO_OPTION) {
+                        JOptionPane.showMessageDialog(null, ex.getMessage());
+                    } else {
+                        NombreSol.setEditable(true);
+                        Telefono.setEditable(true);
+                        Email.setEditable(true);
+                        Email.setText("");
+                        NombreSol.setText("");
+                        Telefono.setText("");
+                        selecionado = null;
+                        jComboBox1.enable(true);
+                        jComboBox1.updateUI();
+                        JOptionPane.showMessageDialog(null, "El Cliente Sera Registrado Al Finalizar El Registro");
+                    }
+
+                }
+
             }
         }
     }
@@ -771,38 +849,84 @@ public class Reservaciones extends javax.swing.JFrame {
                 if (Video.isSelected()) {
                     ev.setVideo_beam(true);
                 }
-                Reservacion rs = new Reservacion(c1, ev, LocalTime.parse(Hora1), LocalTime.parse(Hora1),
-                        Programada);
+                System.out.println(si);
+                if (si == JOptionPane.YES_OPTION) {
+                    String no = NombreSol.getText();
+                    Long cc = Long.parseLong(CC.getText());
+                    String Ema = Email.getText();
+                    Long Te = Long.parseLong(Telefono.getText());
+                    TipoCliente Ts = (TipoCliente) jComboBox1.getSelectedItem();
+
+                    c1 = new Cliente(Ema, Te, cc, no, Ts);
+                    ccp.AgregarCliente(c1);
+                    JOptionPane.showMessageDialog(null, "El Solicitante " + c1.getNombres() + "Ha Sido Registrado");
+
+                }
+                int ms = JOptionPane.showConfirmDialog(null, "¿Desea Registrar La Reservacion Del Solicitante  "
+                        + c1.getNombres() + " Para El Dia " + Programada + " En El Salon " + ev.getSalon().getNombre() + "?",
+                        "Confirmar Reservacion",
+                        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
                 //System.out.println( "Evento " + rs.getEvento().isHimnos());
-                ccp.AgregarReservacion(rs);
-                JOptionPane.showMessageDialog(null, "Se Ha Registrado La reservacion Con Exito");
+                if (ms == JOptionPane.YES_OPTION) {
 
-                //BorrarCampos
-                Respon.setText("");
-            IDRes.setText("");
-            NombreEven.setText("");
-            NumeroAsistente.setText("");
-            NombreSol.setText("");
-            CC.setText("");
-            Telefono.setText("");
-            selecionado = null;
-            jComboBox1.enable(true);
-            jComboBox1.updateUI();
-            Micro.setSelected(false);
-            Him.setSelected(false);
-            Port.setSelected(false);
-            Mante.setSelected(false);
-            mesa.setSelected(false);
-            señali.setSelected(false);
-            pape.setSelected(false);
-            Telon.setSelected(false);
-            Video.setSelected(false);
+                    Reservacion rs = new Reservacion(c1, ev, LocalTime.parse(Hora1), LocalTime.parse(Hora1),
+                            Programada);
+                    ccp.AgregarReservacion(rs);
+                    JOptionPane.showMessageDialog(null, "Se Ha Registrado La reservacion Con Exito");
+                    //BorrarCampos
+                    Respon.setText("");
+                    IDRes.setText("");
+                    NombreEven.setText("");
+                    NumeroAsistente.setText("");
+                    NombreSol.setText("");
+                    CC.setText("");
+                    Telefono.setText("");
+                    selecionado = null;
+                    jComboBox1.enable(true);
+                    jComboBox1.updateUI();
+                    Micro.setSelected(false);
+                    Him.setSelected(false);
+                    Port.setSelected(false);
+                    Mante.setSelected(false);
+                    mesa.setSelected(false);
+                    señali.setSelected(false);
+                    pape.setSelected(false);
+                    Telon.setSelected(false);
+                    Video.setSelected(false);
+                    Email.setText("");
+                } else {
+                 //  JOptionPane.showMessageDialog(null, "Debe Agragar Nuevamentte El Cliente");
 
+//                    NombreSol.setEditable(true);
+//
+//                    Telefono.setEditable(true);
+//
+//                    Email.setEditable(true);
+//
+//                    NombreSol.setText("");
+//                    CC.setText("");
+//                    Telefono.setText("");
+//                    selecionado = null;
+//                    jComboBox1.enable(true);
+//                    jComboBox1.updateUI();
+//                    c1 = null;
+                }
+
+            } catch (NumberFormatException nfe) {
+                JOptionPane.showMessageDialog(null, "Dato Numerico Invalido");
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage());
-            }
-        }
 
+                if (ex.getMessage().equalsIgnoreCase("For input string: \"\"")) {
+                    JOptionPane.showMessageDialog(null, "Campos Obligatorios Sin Rellenar");
+                } else {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                    System.out.println(ex.getMessage());
+                }
+
+            }
+
+        }
     }
 
     public class manejadorcancelar implements ActionListener {
@@ -828,9 +952,15 @@ public class Reservaciones extends javax.swing.JFrame {
             pape.setSelected(false);
             Telon.setSelected(false);
             Video.setSelected(false);
-            
-            
+            Email.setText("");
+            Email.setEditable(true);
+            si = 20;
+            c1 = null;
+            Telefono.setEditable(true);
+            NombreSol.setEditable(true);
+
         }
 
     }
+
 }

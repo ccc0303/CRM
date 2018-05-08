@@ -19,8 +19,20 @@ public class Cliente extends Persona {
     public Cliente(String email, long telefono, Long identificacion, String nombre,
             TipoCliente tipo_cliente) throws Exception {
         super(identificacion, nombre);
+        if (email == null) {
+            throw new Exception("Email No Puede Ser Vacio");
+        }
+        String c = Long.toString(telefono);
+        if ((c.length() > 7) && (c.length() < 11)) {
+
+            this.telefono = telefono;
+        } else {
+            throw new Exception("Telefono Invalido");
+        }
         this.email = email;
-        this.telefono = telefono;
+        if (tipo_cliente == null) {
+            throw new Exception("Email No Puede Ser Vacio");
+        }
         this.tipo_cliente = tipo_cliente;
     }
 
@@ -44,5 +56,4 @@ public class Cliente extends Persona {
         this.telefono = telefono;
     }
 
- 
 }

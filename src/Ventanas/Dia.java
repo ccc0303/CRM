@@ -19,6 +19,7 @@ public class Dia extends javax.swing.JFrame {
 
     private CCP ccp;
     public static Date fe;
+    public static Hora ventana = null;
 
     /**
      * Creates new form Dia
@@ -92,7 +93,6 @@ public class Dia extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private Hora ventana = null;
     private void SiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SiguienteActionPerformed
 
         Date fecha = Calend.getDate();

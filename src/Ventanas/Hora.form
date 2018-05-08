@@ -182,8 +182,9 @@
     <Component class="javax.swing.JSpinner" name="MinutoI">
       <Properties>
         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="0" maximum="60" minimum="0" numberType="java.lang.Integer" stepSize="2" type="number"/>
+          <SpinnerModel initial="0" maximum="60" minimum="0" numberType="java.lang.Integer" stepSize="30" type="number"/>
         </Property>
+        <Property name="enabled" type="boolean" value="false"/>
         <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
           <ComponentRef name="HoraFi"/>
         </Property>
@@ -192,7 +193,7 @@
     <Component class="javax.swing.JSpinner" name="HoraI">
       <Properties>
         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="9" maximum="20" minimum="8" numberType="java.lang.Integer" stepSize="1" type="number"/>
+          <SpinnerModel initial="8" maximum="21" minimum="8" numberType="java.lang.Integer" stepSize="1" type="number"/>
         </Property>
         <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
           <ComponentRef name="MinutoI"/>
@@ -202,7 +203,7 @@
     <Component class="javax.swing.JSpinner" name="HoraFi">
       <Properties>
         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="8" maximum="20" minimum="8" numberType="java.lang.Integer" stepSize="1" type="number"/>
+          <SpinnerModel initial="9" maximum="22" minimum="9" numberType="java.lang.Integer" stepSize="1" type="number"/>
         </Property>
         <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
           <ComponentRef name="MinutoFinal"/>
@@ -212,8 +213,9 @@
     <Component class="javax.swing.JSpinner" name="MinutoFinal">
       <Properties>
         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="0" maximum="60" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+          <SpinnerModel initial="0" maximum="60" minimum="0" numberType="java.lang.Integer" stepSize="10" type="number"/>
         </Property>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">

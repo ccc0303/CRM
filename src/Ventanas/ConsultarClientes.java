@@ -204,9 +204,9 @@ public class ConsultarClientes extends javax.swing.JFrame {
             } catch (NumberFormatException nfe) {
                 JOptionPane.showMessageDialog(null, "Ingrese Un Codigo Valido");
             } catch (IllegalArgumentException iae) {
-                //  JOptionPane.showMessageDialog(null, iae.getMessage());
+                  JOptionPane.showMessageDialog(null, iae.getMessage());
             } catch (Exception ex) {
-                // JOptionPane.showMessageDialog(null, ex.getMessage());
+                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         }
     }

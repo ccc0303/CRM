@@ -11,6 +11,9 @@ import Clases.Salones;
 import static Ventanas.Dia.fe;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import javax.swing.JFrame;
@@ -21,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Yoselin
+ * 
  */
 public class Hora extends javax.swing.JFrame {
 
@@ -32,8 +35,9 @@ public class Hora extends javax.swing.JFrame {
     public LocalTime Horafin;
     public String Hora1;
     public String Hora2;
-    private Date date;
+
     private Date fech;
+    private ArrayList<LocalTime> Horafinal, horainicial;
 
     /**
      * Creates new form Hora
@@ -61,6 +65,16 @@ public class Hora extends javax.swing.JFrame {
         fecha.setEditable(false);
 
         res = ccp.reservacionesHora(fecha.getText(), sal);
+        int iterador = 0;
+        Horafinal = new ArrayList<>();
+        horainicial = new ArrayList<>();
+        while (iterador < res.size()) {
+            Horafinal.add(res.get(iterador).getHora_fin());
+            horainicial.add(res.get(iterador).getHora_inicio());
+            iterador = iterador + 1;
+        }
+
+        System.out.println(Horafinal);
 
         ManejadorJtable mj = new ManejadorJtable();
         jTable1.setModel(mj);
@@ -134,16 +148,18 @@ public class Hora extends javax.swing.JFrame {
             }
         });
 
-        MinutoI.setModel(new javax.swing.SpinnerNumberModel(0, 0, 60, 2));
+        MinutoI.setModel(new javax.swing.SpinnerNumberModel(0, 0, 60, 30));
+        MinutoI.setEnabled(false);
         MinutoI.setNextFocusableComponent(HoraFi);
 
-        HoraI.setModel(new javax.swing.SpinnerNumberModel(9, 8, 20, 1));
+        HoraI.setModel(new javax.swing.SpinnerNumberModel(8, 8, 21, 1));
         HoraI.setNextFocusableComponent(MinutoI);
 
-        HoraFi.setModel(new javax.swing.SpinnerNumberModel(8, 8, 20, 1));
+        HoraFi.setModel(new javax.swing.SpinnerNumberModel(9, 9, 22, 1));
         HoraFi.setNextFocusableComponent(MinutoFinal);
 
-        MinutoFinal.setModel(new javax.swing.SpinnerNumberModel(0, 0, 60, 1));
+        MinutoFinal.setModel(new javax.swing.SpinnerNumberModel(0, 0, 60, 10));
+        MinutoFinal.setEnabled(false);
 
         jLabel5.setText("Minutos:");
 
@@ -232,6 +248,8 @@ public class Hora extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAnteriorActionPerformed
 
     private Reservaciones ventana = null;
+
+
     private void siguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siguienteActionPerformed
 
         if (this.ventana == null) {
@@ -277,16 +295,65 @@ public class Hora extends javax.swing.JFrame {
                 }
 
             }
-
-            System.out.println(Hora1);
+            int iterrardor = 0;
+            int contador = 0;
             horaInicio = LocalTime.parse(Hora1);
             Horafin = LocalTime.parse(Hora2);
-            this.ventana = new Reservaciones(ccp, Hora1, Hora2, salon, date);
-            this.ventana.setResizable(false);
-            dispose();
+            if (res.isEmpty()) {
+                this.ventana = new Reservaciones(ccp, Hora1, Hora2, salon, fech);
+                this.ventana.setResizable(false);
+                dispose();
+                ventana.setVisible(true);
+            }
+            while ((iterrardor < Horafinal.size())) {
+
+                System.out.println(horainicial.get(iterrardor));
+                System.out.println(Horafinal.get(iterrardor));
+                int horai = horainicial.get(iterrardor).getHour();
+                int horf = Horafinal.get(iterrardor).getHour();
+
+                if ((horaInicio == horainicial.get(iterrardor)) || (Horafin == Horafinal.get(iterrardor))
+                        || (horaInicio == Horafinal.get(iterrardor)) || (Horafin == horainicial.get(iterrardor))) {
+                    JOptionPane.showMessageDialog(null, "Hora No Disponible");
+                    break;
+                }
+                if ((horaInicio.isAfter(horainicial.get(iterrardor))) && (horaInicio.isBefore(Horafinal.get(iterrardor)))) {
+                    JOptionPane.showMessageDialog(null, "Hora No Disponible");
+                    break;
+                }
+                if ((Horafin.isAfter(horainicial.get(iterrardor))) && (Horafin.isBefore(Horafinal.get(iterrardor)))) {
+                    JOptionPane.showMessageDialog(null, "Hora No Disponible");
+                    break;
+                }
+
+                if (((horaInicio.getHour() <= horai) && (Horafin.getHour() >= horai))
+                        || ((horaInicio.getHour() <= horf) && (Horafin.getHour() >= horf))) {
+                    JOptionPane.showMessageDialog(null, "Hora No Disponible");
+                    break;
+
+                }
+                if (horaInicio.getHour() >= Horafin.getHour()) {
+                    JOptionPane.showMessageDialog(null, "Hora No Disponible");
+                    break;
+                }
+
+                if ((horaInicio != horainicial.get(iterrardor)) && (Horafin != Horafinal.get(iterrardor))) {
+                    iterrardor++;
+                    contador++;
+                }
+
+                if (contador == Horafinal.size()) {
+                    this.ventana = new Reservaciones(ccp, Hora1, Hora2, salon, fech);
+                    this.ventana.setResizable(false);
+                    dispose();
+                    ventana.setVisible(true);
+                    break;
+
+                }
+
+            }
 
         }
-        ventana.setVisible(true);
 
 
     }//GEN-LAST:event_siguienteActionPerformed
@@ -321,6 +388,7 @@ public class Hora extends javax.swing.JFrame {
 
             if (res.isEmpty()) {
                 jTable1.setModel((new DefaultTableModel()));
+
             }
             return res.size();
         }
@@ -359,8 +427,7 @@ public class Hora extends javax.swing.JFrame {
         }
 
         private String[] nombreColumnas = {
-            "Nombre Cliente", "Hora Inicio", "Hora Fin"
-        };
+            "Nombre Cliente", "Hora Inicio", "Hora Fin" };
 
         public String getColumnName(int columnIndex) {
 

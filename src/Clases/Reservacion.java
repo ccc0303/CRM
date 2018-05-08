@@ -7,19 +7,22 @@ import java.util.Date;
 
 public class Reservacion {
 
-    
     private int codigo;
     private Cliente cliente;
-    private Evento evento; 
+    private Evento evento;
     private LocalTime hora_inicio;
     private LocalTime hora_fin;
     private LocalDate fecha_solicitud;
     private LocalDate fecha_programada;
-    
+
     private boolean estado;
 
-    public Reservacion(Cliente cliente, Evento evento, LocalTime hora_inicio, LocalTime hora_fin, LocalDate fecha_programada) {
+    public Reservacion(Cliente cliente, Evento evento, LocalTime hora_inicio, LocalTime hora_fin, LocalDate fecha_programada) throws Exception {
+        if (cliente == null) {
+            throw new Exception("El Cliene No Puede Ser Vacio");
+        }
         this.cliente = cliente;
+
         this.evento = evento;
         this.hora_inicio = hora_inicio;
         this.hora_fin = hora_fin;
@@ -27,17 +30,17 @@ public class Reservacion {
         this.estado = true;
         int numero = (int) (Math.random() * 100000) + 1;
         int numero2 = (int) (Math.random() * 10000) + 1;
-        this.codigo = numero * numero2 ;
+        this.codigo = numero * numero2;
     }
 
     public int getCodigo() {
         return codigo;
     }
-    
-    public void codigoAumento (){
+
+    public void codigoAumento() {
         this.codigo = codigo + 1;
     }
-    
+
     public Cliente getCliente() {
         return cliente;
     }
@@ -69,7 +72,5 @@ public class Reservacion {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-
-    
 
 }

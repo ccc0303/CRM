@@ -5,21 +5,37 @@ public class Evento {
     private String nombre;
     private String responsableEvento;
     private int num_asistentes;
-    private boolean himnos, manteles, papelografo, mesas, señalizador, 
-                    video_beam, portatil, telon, microfono;
+    private boolean himnos, manteles, papelografo, mesas, señalizador,
+            video_beam, portatil, telon, microfono;
     private TipoSilleteria silleteria;
     private Long idResponsableEvento;
     private Salones salon;
 
-    public Evento(String nombre, String responsableEvento, int num_asistentes, Long idResponsableEvento, Salones salon) {
+    public Evento(String nombre, String responsableEvento, int num_asistentes, Long idResponsableEvento, Salones salon) throws Exception {
+
+        if (nombre == null) {
+            throw new Exception("Nombre No Puede Ser Vacio");
+        }
+        if (responsableEvento == null) {
+            throw new Exception("El Nombre Del Responsable No Puede Ser Vacio No Puede Ser Vacio");
+        }
+        if (num_asistentes == 0) {
+            throw new Exception("Numero Asistente No Puede Ser Vacio");
+        }
+        String c = Long.toString(idResponsableEvento);
+        if ((c.length() > 6) && (c.length() < 11)) {
+
+            this.idResponsableEvento = idResponsableEvento;
+        } else {
+            throw new Exception("Identificacion Del Responsable No Valida");
+        }
+        
         this.nombre = nombre;
         this.responsableEvento = responsableEvento;
         this.num_asistentes = num_asistentes;
-        this.idResponsableEvento = idResponsableEvento;
+
         this.salon = salon;
     }
-
-   
 
     public String getNombre() {
         return nombre;
@@ -80,7 +96,6 @@ public class Evento {
     public Salones getSalon() {
         return salon;
     }
-    
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -141,7 +156,5 @@ public class Evento {
     public void setSalon(Salones salon) {
         this.salon = salon;
     }
-    
-    
- 
+
 }
