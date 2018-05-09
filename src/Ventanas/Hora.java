@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * 
+ *
  */
 public class Hora extends javax.swing.JFrame {
 
@@ -149,7 +149,6 @@ public class Hora extends javax.swing.JFrame {
         });
 
         MinutoI.setModel(new javax.swing.SpinnerNumberModel(0, 0, 60, 30));
-        MinutoI.setEnabled(false);
         MinutoI.setNextFocusableComponent(HoraFi);
 
         HoraI.setModel(new javax.swing.SpinnerNumberModel(8, 8, 21, 1));
@@ -159,7 +158,6 @@ public class Hora extends javax.swing.JFrame {
         HoraFi.setNextFocusableComponent(MinutoFinal);
 
         MinutoFinal.setModel(new javax.swing.SpinnerNumberModel(0, 0, 60, 10));
-        MinutoFinal.setEnabled(false);
 
         jLabel5.setText("Minutos:");
 
@@ -307,33 +305,57 @@ public class Hora extends javax.swing.JFrame {
             }
             while ((iterrardor < Horafinal.size())) {
 
-                System.out.println(horainicial.get(iterrardor));
-                System.out.println(Horafinal.get(iterrardor));
                 int horai = horainicial.get(iterrardor).getHour();
                 int horf = Horafinal.get(iterrardor).getHour();
+                int minui = horainicial.get(iterrardor).getMinute();
+                int minuf = Horafinal.get(iterrardor).getMinute();
 
+                int tras1 = horaInicio.getHour() - horf;
+
+                int tras2 = Horafin.getHour() - horai;
+
+                int muniini = horaInicio.getMinute() - minuf;
+
+                int minufina = Horafin.getMinute() - minui;
+                int Diferencia1 = tras1 * 60 + muniini;
+                int diferencia2 = tras2 * 60 + minufina;
+
+                if (Diferencia1 < 0) {
+                    Diferencia1 = Diferencia1 * -1;
+
+                }
+                if (diferencia2 < 0) {
+                    diferencia2 = diferencia2 * -1;
+
+                }
+                System.out.println("Hola " + diferencia2);
                 if ((horaInicio == horainicial.get(iterrardor)) || (Horafin == Horafinal.get(iterrardor))
                         || (horaInicio == Horafinal.get(iterrardor)) || (Horafin == horainicial.get(iterrardor))) {
-                    JOptionPane.showMessageDialog(null, "Hora No Disponible");
+                    JOptionPane.showMessageDialog(null, "Hora De Reservacion No Disponible");
                     break;
                 }
                 if ((horaInicio.isAfter(horainicial.get(iterrardor))) && (horaInicio.isBefore(Horafinal.get(iterrardor)))) {
-                    JOptionPane.showMessageDialog(null, "Hora No Disponible");
+                    JOptionPane.showMessageDialog(null, "Hora De Reservacion No Disponible");
                     break;
                 }
                 if ((Horafin.isAfter(horainicial.get(iterrardor))) && (Horafin.isBefore(Horafinal.get(iterrardor)))) {
-                    JOptionPane.showMessageDialog(null, "Hora No Disponible");
+                    JOptionPane.showMessageDialog(null, "Hora De Reservacion No Disponible");
                     break;
                 }
 
                 if (((horaInicio.getHour() <= horai) && (Horafin.getHour() >= horai))
                         || ((horaInicio.getHour() <= horf) && (Horafin.getHour() >= horf))) {
-                    JOptionPane.showMessageDialog(null, "Hora No Disponible");
+                    JOptionPane.showMessageDialog(null, "Hora De Reservacion No Disponible");
                     break;
 
                 }
                 if (horaInicio.getHour() >= Horafin.getHour()) {
-                    JOptionPane.showMessageDialog(null, "Hora No Disponible");
+                    JOptionPane.showMessageDialog(null, "Hora De Reservacion No Disponible");
+                    break;
+                }
+
+                if (Diferencia1 < 60 || (diferencia2 < 60)) {
+                    JOptionPane.showMessageDialog(null, "Hora De Reservacion No Disponible");
                     break;
                 }
 
@@ -427,7 +449,7 @@ public class Hora extends javax.swing.JFrame {
         }
 
         private String[] nombreColumnas = {
-            "Nombre Cliente", "Hora Inicio", "Hora Fin" };
+            "Nombre Cliente", "Hora Inicio", "Hora Fin"};
 
         public String getColumnName(int columnIndex) {
 
