@@ -7,6 +7,8 @@ package Ventanas;
 
 import Clases.CCP;
 import Clases.Cliente;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
@@ -30,6 +32,21 @@ public class ActualizarCliente extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
         ManejadorComboBox mc = new ManejadorComboBox();
         ComboBox.setModel(mc);
+
+        ManejadorBuscarCliente mbc = new ManejadorBuscarCliente();
+        btnBuscar.addActionListener(mbc);
+        txtCedula.addActionListener(mbc);
+
+        ManejadorActualizarCliente mac = new ManejadorActualizarCliente();
+        btnActualizar.addActionListener(mac);
+
+        btnActualizar.setEnabled(false);
+        btnCancelar.setEnabled(false);
+        Nombre.setEditable(false);
+        ComboBox.setEnabled(false);
+        email.setEditable(false);
+        tt.setEditable(false);
+
     }
 
     /**
@@ -55,7 +72,7 @@ public class ActualizarCliente extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         ComboBox = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -92,6 +109,12 @@ public class ActualizarCliente extends javax.swing.JDialog {
         });
 
         jLabel2.setText("Cedula :");
+
+        tt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ttActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Telefono :");
 
@@ -165,15 +188,15 @@ public class ActualizarCliente extends javax.swing.JDialog {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel6.setText("Actualizar Cliente");
 
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/color boton naranja.png"))); // NOI18N
-        jButton2.setText("Cancelar");
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setBackground(new java.awt.Color(255, 255, 255));
+        btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/color boton naranja.png"))); // NOI18N
+        btnCancelar.setText("Limpiar");
+        btnCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -190,7 +213,7 @@ public class ActualizarCliente extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
@@ -211,7 +234,7 @@ public class ActualizarCliente extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
@@ -224,71 +247,42 @@ public class ActualizarCliente extends javax.swing.JDialog {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
 
-        try {
-            String id = txtCedula.getText();
-            Long cedula = Long.parseLong(id);
-            Cliente c = ccp.buscarCliente(cedula);
-
-            String em = email.getText();
-            c.setEmail(em);
-
-            Long tel = Long.parseLong(tt.getText());
-            c.setTelefono(tel);
-
-            JOptionPane.showMessageDialog(null, "EL Cliente Se Actualizo Correctamente");
-
-        } catch (Exception ex) {
-            Logger.getLogger(ActualizarCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCedulaActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
 
-        Nombre.setEditable(true);
         txtCedula.setEditable(true);
-        ComboBox.enable(true);
-        
+        btnBuscar.setEnabled(true);
+        email.setEditable(false);
+        tt.setEditable(false);
+
         Nombre.setText("");
         txtCedula.setText("");
         tt.setText("");
         email.setText("");
         selecionado = null;
         ComboBox.updateUI();
+        btnCancelar.setEnabled(false);
+        btnActualizar.setEnabled(false);
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 
-        try {
-            String id = txtCedula.getText();
-            Long cedula = Long.parseLong(id);
-            Cliente c = ccp.buscarCliente(cedula);
-
-            Nombre.setText(c.getNombres());
-            tt.setText(Long.toString(c.getTelefono()));
-            email.setText(c.getEmail());
-            selecionado = c.getTipo_cliente();
-            ComboBox.updateUI();
-
-            Nombre.setEditable(false);
-            txtCedula.setEditable(false);
-            ComboBox.enable(false);
-
-        } catch (NumberFormatException nfe) {
-            JOptionPane.showMessageDialog(null, "Solo Se Puede Ingresar Valores Numericos");
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxActionPerformed
 
     }//GEN-LAST:event_ComboBoxActionPerformed
+
+    private void ttActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ttActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ttActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -296,8 +290,8 @@ public class ActualizarCliente extends javax.swing.JDialog {
     private javax.swing.JTextField Nombre;
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JTextField email;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -343,5 +337,66 @@ public class ActualizarCliente extends javax.swing.JDialog {
         }
     }
 
- 
+    public class ManejadorBuscarCliente implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            try {
+                String id = txtCedula.getText();
+                Long cedula = Long.parseLong(id);
+                Cliente c = ccp.buscarCliente(cedula);
+
+                Nombre.setText(c.getNombres());
+                tt.setText(Long.toString(c.getTelefono()));
+                email.setText(c.getEmail());
+                selecionado = c.getTipo_cliente();
+                ComboBox.updateUI();
+
+                btnActualizar.setEnabled(true);
+                btnCancelar.setEnabled(true);
+                btnBuscar.setEnabled(false);
+                txtCedula.setEditable(false);
+                email.setEditable(true);
+                tt.setEditable(true);
+
+            } catch (NumberFormatException nfe) {
+                JOptionPane.showMessageDialog(null, "Solo Se Puede Ingresar Valores Numericos");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+
+        }
+
+    }
+
+    public class ManejadorActualizarCliente implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            try {
+                String id = txtCedula.getText();
+                Long cedula = Long.parseLong(id);
+                Cliente c = ccp.buscarCliente(cedula);
+
+                String em = email.getText();
+                c.setEmail(em);
+
+                Long tel = Long.parseLong(tt.getText());
+                c.setTelefono(tel);
+
+                email.setEditable(false);
+                tt.setEditable(false);
+                btnActualizar.setEnabled(false);
+                JOptionPane.showMessageDialog(null, "EL Cliente Se Actualizo Correctamente");
+
+            } catch (Exception ex) {
+                Logger.getLogger(ActualizarCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+    }
+
 }
