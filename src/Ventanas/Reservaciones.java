@@ -30,7 +30,7 @@ import javax.swing.event.ListDataListener;
  * @author Yoselin
  */
 public class Reservaciones extends javax.swing.JFrame {
-
+    
     private CCP ccp;
     private Cliente c1 = null;
     private Salones s;
@@ -56,28 +56,28 @@ public class Reservaciones extends javax.swing.JFrame {
         manejadorregistraEvento mv = new manejadorregistraEvento();
         RegistrarBu.addActionListener(mv);
         System.out.println(date1);
-
+        
         Date date = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         String fechaCadena = sdf.format(date);
         fecha = date1;
         String fechaCadenap = sdf.format(date1);
-
+        
         System.out.println("Hora " + fecha);
         FechaSolicitud.setText(fechaCadena);
         FechaProgra.setText(fechaCadenap);
         FechaProgra.setEditable(false);
-
+        
         FechaSolicitud.setEditable(false);
         ManejadorBuscar mb = new ManejadorBuscar();
         BuscarBoton.addActionListener(mb);
         ManejadorComboBox mj = new ManejadorComboBox();
         jComboBox1.setModel(mj);
-
+        
         manejadorcancelar mc = new manejadorcancelar();
         CancelarB.addActionListener(mc);
     }
-
+    
     Dia d = new Dia(ccp);
     Hora h = d.ventana;
 
@@ -648,7 +648,7 @@ public class Reservaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_EmailActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
+        
         dispose();
         h.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -719,9 +719,9 @@ public class Reservaciones extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private int si = 20;
-
+    
     public class ManejadorBuscar implements ActionListener {
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
@@ -739,14 +739,14 @@ public class Reservaciones extends javax.swing.JFrame {
                 selecionado = c.getTipo_cliente();
                 jComboBox1.updateUI();
                 jComboBox1.enable(false);
-
+                
                 if (c1 == null) {
                     int ms = JOptionPane.showConfirmDialog(null, "El Solicitante Con Numero " + CC.getText()
                             + " No Se Encuentra Registrado ¿ desea Registrarlo ?",
                             "Cliente No Encontado",
                             JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 }
-
+                
             } catch (NumberFormatException nfe) {
                 JOptionPane.showMessageDialog(null, "Ingrese Un Codigo Valido");
             } catch (IllegalArgumentException iae) {
@@ -771,50 +771,50 @@ public class Reservaciones extends javax.swing.JFrame {
                         jComboBox1.updateUI();
                         JOptionPane.showMessageDialog(null, "El Cliente Sera Registrado Al Finalizar El Registro");
                     }
-
+                    
                 }
-
+                
             }
         }
     }
     private Object selecionado = null;
-
+    
     public class ManejadorComboBox implements ComboBoxModel {
-
+        
         @Override
         public void setSelectedItem(Object anItem) {
             selecionado = anItem;
         }
-
+        
         @Override
         public Object getSelectedItem() {
             return selecionado;
         }
-
+        
         @Override
         public int getSize() {
             return ccp.getTipoClientes().size();
         }
-
+        
         @Override
         public Object getElementAt(int index) {
             return ccp.getTipoClientes().get(index);
         }
-
+        
         @Override
         public void addListDataListener(ListDataListener l) {
         }
-
+        
         @Override
         public void removeListDataListener(ListDataListener l) {
         }
     }
-
+    
     public class manejadorregistraEvento implements ActionListener {
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            
             try {
                 String nombreRe = Respon.getText();
                 Long Id = Long.parseLong(IDRes.getText());
@@ -856,11 +856,11 @@ public class Reservaciones extends javax.swing.JFrame {
                     String Ema = Email.getText();
                     Long Te = Long.parseLong(Telefono.getText());
                     TipoCliente Ts = (TipoCliente) jComboBox1.getSelectedItem();
-
+                    
                     c1 = new Cliente(Ema, Te, cc, no, Ts);
                     ccp.AgregarCliente(c1);
-                    JOptionPane.showMessageDialog(null, "El Solicitante " + c1.getNombres() + "Ha Sido Registrado");
-
+                    JOptionPane.showMessageDialog(null, "El Solicitante " + c1.getNombres() + "Ha Sido Registrado ");
+                    
                 }
                 int ms = JOptionPane.showConfirmDialog(null, "¿Desea Registrar La Reservacion Del Solicitante  "
                         + c1.getNombres() + " Para El Dia " + Programada + " En El Salon " + ev.getSalon().getNombre() + "?",
@@ -869,7 +869,7 @@ public class Reservaciones extends javax.swing.JFrame {
 
                 //System.out.println( "Evento " + rs.getEvento().isHimnos());
                 if (ms == JOptionPane.YES_OPTION) {
-
+                    
                     Reservacion rs = new Reservacion(c1, ev, LocalTime.parse(Hora1), LocalTime.parse(Hora1),
                             Programada);
                     ccp.AgregarReservacion(rs);
@@ -896,41 +896,37 @@ public class Reservaciones extends javax.swing.JFrame {
                     Video.setSelected(false);
                     Email.setText("");
                 } else {
-                 //  JOptionPane.showMessageDialog(null, "Debe Agragar Nuevamentte El Cliente");
-
-//                    NombreSol.setEditable(true);
-//
-//                    Telefono.setEditable(true);
-//
-//                    Email.setEditable(true);
-//
-//                    NombreSol.setText("");
-//                    CC.setText("");
-//                    Telefono.setText("");
-//                    selecionado = null;
-//                    jComboBox1.enable(true);
-//                    jComboBox1.updateUI();
-//                    c1 = null;
+                    JOptionPane.showMessageDialog(null, "El Solicitante No Puede Ser Editado");
+                    CC.setEditable(false);
+                    si = JOptionPane.NO_OPTION;
+                    NombreSol.setEditable(false);
+                    
+                    Telefono.setEditable(false);
+                    
+                    Email.setEditable(false);
+                    jComboBox1.enable(false);
+                    jComboBox1.updateUI();
+                    
                 }
-
+                
             } catch (NumberFormatException nfe) {
                 JOptionPane.showMessageDialog(null, "Dato Numerico Invalido");
             } catch (Exception ex) {
-
+                
                 if (ex.getMessage().equalsIgnoreCase("For input string: \"\"")) {
                     JOptionPane.showMessageDialog(null, "Campos Obligatorios Sin Rellenar");
                 } else {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                     System.out.println(ex.getMessage());
                 }
-
+                
             }
-
+            
         }
     }
-
+    
     public class manejadorcancelar implements ActionListener {
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             Respon.setText("");
@@ -958,9 +954,9 @@ public class Reservaciones extends javax.swing.JFrame {
             c1 = null;
             Telefono.setEditable(true);
             NombreSol.setEditable(true);
-
+            
         }
-
+        
     }
-
+    
 }

@@ -20,7 +20,7 @@ public class Evento {
             throw new Exception("El Nombre Del Responsable No Puede Ser Vacio No Puede Ser Vacio");
         }
         if (num_asistentes == 0) {
-            throw new Exception("Numero Asistente No Puede Ser Vacio");
+            throw new Exception("Numero Asistente No Puede Ser 0");
         }
         String c = Long.toString(idResponsableEvento);
         if ((c.length() > 6) && (c.length() < 11)) {
