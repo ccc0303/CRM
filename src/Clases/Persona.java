@@ -5,9 +5,11 @@ package Clases;
  * @author salasistemas
  */
 public class Persona {
+
     private Long identificacion;
     private String nombre;
-   ;
+
+    ;
 
     public Persona(Long identificacion, String nombre) throws Exception {
 
@@ -15,15 +17,13 @@ public class Persona {
             throw new Exception("El Nombre no puede ser nulo o vacio");
         }
 
-        String c = Long.toString(identificacion);
-
-        if ((c.length() > 6) && (c.length() < 11)) {
-            this.identificacion = identificacion;
-        } else {
-            throw new Exception(" N° De Identificacion No Valida");
+        if ((identificacion.toString().length() < 6)
+                || (identificacion.toString().length() > 11)) {
+            throw new Exception("N° De Identificacion No Valido");
         }
+        this.identificacion = identificacion;
         this.nombre = nombre;
-        
+
     }
 
     public Long getIdentificacion() {

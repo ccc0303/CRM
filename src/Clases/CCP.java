@@ -25,7 +25,7 @@ public class CCP {
     private LinkedList<Reservacion> reservaciones;
     private LinkedList<TipoCliente> tipoClientes;
 
-    public CCP() {
+    public CCP() throws Exception{
         this.clientes = new LinkedList<>();
         this.salones = new LinkedList<>();
         this.reservaciones = new LinkedList<>();
