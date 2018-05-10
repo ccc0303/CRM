@@ -12,7 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
@@ -39,8 +38,9 @@ public class CancelarR_GUI extends javax.swing.JDialog {
 
         ManejadorCancelarReservacion mcr = new ManejadorCancelarReservacion();
         botonCancelarReservacion.addActionListener(mcr);
-        
-        
+
+        botonCancelar.setEnabled(false);
+        txt_Tabla.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -101,8 +101,8 @@ public class CancelarR_GUI extends javax.swing.JDialog {
                 .addGap(50, 50, 50)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addComponent(txt_Tipo1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addComponent(txt_Tipo1)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,7 +166,7 @@ public class CancelarR_GUI extends javax.swing.JDialog {
 
         botonCancelar.setForeground(new java.awt.Color(255, 255, 255));
         botonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/color boton verde.png"))); // NOI18N
-        botonCancelar.setText("Cancelar");
+        botonCancelar.setText("Limpiar");
         botonCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED), "Datos Reservacion"));
@@ -289,13 +289,16 @@ public class CancelarR_GUI extends javax.swing.JDialog {
 
                 ManejadorJtable mtm = new ManejadorJtable();
                 txt_Tabla.setModel(mtm);
-                
-                 if (ccp.ConsulttarReservacionesDisponibles(identificacion).isEmpty()) {
+                txt_Tabla.setEnabled(true);
+
+                if (ccp.ConsulttarReservacionesDisponibles(identificacion).isEmpty()) {
                     botonCancelarReservacion.setEnabled(false);
-                }else{
-                   botonCancelarReservacion.setEnabled(true);  
-                 }   
+                } else {
+                    botonCancelarReservacion.setEnabled(true);
+                }
                 txt_Identificacion.setEditable(false);
+                botonBuscar.setEnabled(false);
+                botonCancelar.setEnabled(true);
 
             } catch (NumberFormatException nfe) {
                 JOptionPane.showMessageDialog(null, "Ingrese Un N° de Identifacion Valida");
@@ -377,23 +380,26 @@ public class CancelarR_GUI extends javax.swing.JDialog {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            int msj = JOptionPane.showConfirmDialog(null, "Desea Cancelar La Reservacion");
 
-            if (msj == JOptionPane.YES_OPTION) {
-                Long identificacion = Long.parseLong(txt_Identificacion.getText());
-                int fila = txt_Tabla.getSelectedRow();     
-                 if (ccp.ConsulttarReservacionesDisponibles(identificacion).size() == 1 ) {
-                    botonCancelarReservacion.setEnabled(false);
-                }
+            Long identificacion = Long.parseLong(txt_Identificacion.getText());
+            int fila = txt_Tabla.getSelectedRow();
+            int sele = txt_Tabla.getSelectedRowCount();
+       
+            if (sele > 0) {
                 Reservacion re = ccp.ConsulttarReservacionesDisponibles(identificacion).get(fila);
-                re.setEstado(false);
-                txt_Tabla.updateUI();
+                int msj = JOptionPane.showConfirmDialog(null, "Desea Cancelar La Reservacion", "Selecione Una Opcion", 0);
+                if (msj == JOptionPane.YES_OPTION) {
+                    if (ccp.ConsulttarReservacionesDisponibles(identificacion).size() == 1) {
+                        botonCancelarReservacion.setEnabled(false);
+                    }
+                    re.setEstado(false);
+                    txt_Tabla.updateUI();
+                }
 
-            }
-            if (msj == JOptionPane.NO_OPTION) {
-            }
-
-            if (msj == JOptionPane.CLOSED_OPTION) {
+                if (msj == JOptionPane.NO_OPTION) {
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Selecione Una Reservacion");
             }
 
         }
@@ -412,7 +418,8 @@ public class CancelarR_GUI extends javax.swing.JDialog {
             txt_Tipo1.setText("");
             botonCancelarReservacion.setEnabled(false);
             txt_Identificacion.setEditable(true);
-            
+            botonBuscar.setEnabled(true);
+            botonCancelar.setEnabled(false);
         }
 
     }

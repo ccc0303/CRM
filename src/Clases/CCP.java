@@ -100,7 +100,9 @@ public class CCP {
         int i = 0;
 
         while (this.reservaciones.size() > i) {
-            if (Objects.equals(this.reservaciones.get(i).getCliente().getIdentificacion(), cc)) {
+            if ((Objects.equals(this.reservaciones.get(i).getCliente().getIdentificacion(), cc))
+                && (this.reservaciones.get(i).getFecha_programada().isBefore(LocalDate.now()))
+                    && (this.reservaciones.get(i).isEstado())) {
                 reser.add(this.reservaciones.get(i));
                 i++;
             } else {
@@ -118,7 +120,7 @@ public class CCP {
         while (this.reservaciones.size() > i) {
             if ((Objects.equals(this.reservaciones.get(i).getCliente().getIdentificacion(), cc))
                     &&(this.reservaciones.get(i).getFecha_programada().isAfter(LocalDate.now()))
-                        &&(this.reservaciones.get(i).isEstado())) {
+                       &&(this.reservaciones.get(i).isEstado())) {
                 reser.add(this.reservaciones.get(i));
                 i++;
             } else {

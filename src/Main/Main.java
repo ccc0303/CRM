@@ -47,10 +47,10 @@ public class Main {
 
         Evento e = new Evento("Reunion", "Cristian", 10, 1114838772L, s3);
 
-        Reservacion rs1 = new Reservacion(c2, e, LocalTime.parse("15:00:00"), LocalTime.parse("18:00:00"), LocalDate.of(2018, Month.MAY, 29));
+        Reservacion rs1 = new Reservacion(c2, e, LocalTime.parse("15:00:00"), LocalTime.parse("18:00:00"), LocalDate.of(2018, Month.MAY, 9));
         Reservacion rs = new Reservacion(c, e, LocalTime.parse("10:00:00"), LocalTime.parse("11:30:00"), LocalDate.of(2018, Month.MAY, 29));
         Reservacion rs2 = new Reservacion(c, e, LocalTime.parse("10:00:00"), LocalTime.parse("11:00:00"), LocalDate.of(2018, Month.MAY, 30));
-        Reservacion rs3 = new Reservacion(c, e, LocalTime.parse("10:00:00"), LocalTime.parse("11:00:00"), LocalDate.of(2018, Month.MAY, 3));
+        Reservacion rs3 = new Reservacion(c, e, LocalTime.parse("10:00:00"), LocalTime.parse("11:00:00"), LocalDate.of(2018, Month.MAY, 10));
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         Date date = Date.from(rs.getFecha_programada().atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -74,6 +74,7 @@ public class Main {
         ccp.AgregarReservacion(rs1);
         ccp.AgregarReservacion(rs2);
         ccp.AgregarReservacion(rs3);
+        
 
         new Login(ccp).setVisible(true);
     }
