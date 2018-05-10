@@ -375,6 +375,8 @@ public class CancelarR_GUI extends javax.swing.JDialog {
         }
 
     }
+    int fila;
+    int s;
 
     public class ManejadorCancelarReservacion implements ActionListener {
 
@@ -382,25 +384,28 @@ public class CancelarR_GUI extends javax.swing.JDialog {
         public void actionPerformed(ActionEvent e) {
 
             Long identificacion = Long.parseLong(txt_Identificacion.getText());
-            int fila = txt_Tabla.getSelectedRow();
-            int sele = txt_Tabla.getSelectedRowCount();
-       
-            if (sele > 0) {
-                Reservacion re = ccp.ConsulttarReservacionesDisponibles(identificacion).get(fila);
+            fila = txt_Tabla.getSelectedRow();
+            s = fila;
+
+            if ((s == -1)) {
+                JOptionPane.showMessageDialog(null, "Selecione Una Reservacion");
+
+            } else {
+
                 int msj = JOptionPane.showConfirmDialog(null, "Desea Cancelar La Reservacion", "Selecione Una Opcion", 0);
                 if (msj == JOptionPane.YES_OPTION) {
-                    if (ccp.ConsulttarReservacionesDisponibles(identificacion).size() == 1) {
-                        botonCancelarReservacion.setEnabled(false);
-                    }
+                    Reservacion re = ccp.ConsulttarReservacionesDisponibles(identificacion).get(fila);
                     re.setEstado(false);
                     txt_Tabla.updateUI();
+                   
+                    System.out.println(fila);
+                    if (ccp.ConsulttarReservacionesDisponibles(identificacion).isEmpty()) {
+                        botonCancelarReservacion.setEnabled(false);
+                    }
                 }
 
-                if (msj == JOptionPane.NO_OPTION) {
-                }
-            }else{
-                JOptionPane.showMessageDialog(null, "Selecione Una Reservacion");
             }
+             s = s - fila - 1;
 
         }
 
