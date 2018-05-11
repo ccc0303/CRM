@@ -6,10 +6,6 @@
 package Ventanas;
 
 import Clases.CCP;
-import java.awt.Button;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JMenuItem;
 
 /**
  *
@@ -18,7 +14,6 @@ import javax.swing.JMenuItem;
 public class CamaraGUI extends javax.swing.JFrame {
 
     private CCP ccp;
-    
 
     public CamaraGUI(CCP c) {
         this.ccp = c;
@@ -158,7 +153,7 @@ public class CamaraGUI extends javax.swing.JFrame {
             this.v.setResizable(false);
         }
         v.setVisible(true);
-        
+
     }//GEN-LAST:event_opcionRegistrarReservacionActionPerformed
 
     private ConsultarReservaciones ventana3 = null;

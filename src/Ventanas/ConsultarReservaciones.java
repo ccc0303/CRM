@@ -37,6 +37,8 @@ public class ConsultarReservaciones extends javax.swing.JFrame {
 
         ManejadorComboBox mc = new ManejadorComboBox();
         comboBox.setModel(mc);
+        Table.setModel((new DefaultTableModel()));
+        Cancelar.setEnabled(false);
     }
 
     /**
@@ -101,29 +103,31 @@ public class ConsultarReservaciones extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(Cancelar)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(99, 99, 99)
-                            .addComponent(jLabel1))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(35, 35, 35)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel3)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(diaCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(99, 99, 99)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(diaCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))))
+                        .addGap(102, 212, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(Cancelar)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,9 +147,9 @@ public class ConsultarReservaciones extends javax.swing.JFrame {
                             .addComponent(Buscar))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Cancelar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
@@ -159,17 +163,28 @@ public class ConsultarReservaciones extends javax.swing.JFrame {
         comboBox.updateUI();
         diaCalendario.setDate(null);
         diaCalendario.updateUI();
+        Cancelar.setEnabled(false);
+        Buscar.setEnabled(true);
+        diaCalendario.setEnabled(true);
+        comboBox.setEnabled(true);
     }//GEN-LAST:event_CancelarActionPerformed
+
+    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
     private void BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarActionPerformed
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        Date da = diaCalendario.getDate();
-        fechaCadena = sdf.format(da);
-
-        ManejadorJtable mtm = new ManejadorJtable();
-        Table.setModel(mtm);
-
+        if ((selecionado == null) || (diaCalendario.getDate() == null)) {
+            JOptionPane.showMessageDialog(null, "Se Debe De Selecionar El Salon Y La Fecha");
+        } else {
+            Date da = diaCalendario.getDate();
+            fechaCadena = sdf.format(da);
+            ManejadorJtable mtm = new ManejadorJtable();
+            Table.setModel(mtm);
+            Cancelar.setEnabled(true);
+            Buscar.setEnabled(false);
+            diaCalendario.setEnabled(false);
+            comboBox.setEnabled(false);
+        }
     }//GEN-LAST:event_BuscarActionPerformed
 
     /**
@@ -225,10 +240,7 @@ public class ConsultarReservaciones extends javax.swing.JFrame {
 
         @Override
         public int getRowCount() {
-            if (ccp.reservacionesHora(fechaCadena, (Salones) selecionado).isEmpty()) {
-                Table.setModel((new DefaultTableModel()));
-            }
-            return ccp.reservacionesHora(fechaCadena, (Salones) selecionado).size();
+            return ccp.reservacionesHora(fechaCadena, (Salones) comboBox.getSelectedItem()).size();
         }
 
         @Override
@@ -238,7 +250,7 @@ public class ConsultarReservaciones extends javax.swing.JFrame {
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
-            Reservacion dc = ccp.reservacionesHora(fechaCadena, (Salones) selecionado).get(rowIndex);
+            Reservacion dc = ccp.reservacionesHora(fechaCadena, (Salones) comboBox.getSelectedItem()).get(rowIndex);
             Object valor = "";
             switch (columnIndex) {
                 case 0:
