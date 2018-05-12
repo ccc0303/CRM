@@ -141,7 +141,8 @@ public class CCP {
             Date date = Date.from(rs.getFecha_programada().atStartOfDay(ZoneId.systemDefault()).toInstant());
             String fechaCadena = sdf.format(date);
             if ((s.equalsIgnoreCase(fechaCadena)
-                    && (sal.getNombre().equalsIgnoreCase(rs.getEvento().getSalon().getNombre())))) {
+                    && (sal.getNombre().equalsIgnoreCase(rs.getEvento().getSalon().getNombre())))
+                    && (rs.isEstado())) {
 
                 reser.add(rs);
                 i++;
