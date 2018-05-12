@@ -398,23 +398,12 @@ public class CancelarR_GUI extends javax.swing.JDialog {
             System.out.println("lo seleccionado "+fila+" "+txt_Tabla.getSelectedRow());
             if ((txt_Tabla.getSelectedRow() == -1)) {
                 JOptionPane.showMessageDialog(null, "Selecione Una Reservacion");
-                botonCancelarReservacion.setEnabled(false);
-
             } else {
-
                 int msj = JOptionPane.showConfirmDialog(null, "Desea Cancelar La Reservacion", "Selecione Una Opcion", 0);
                 if (msj == JOptionPane.YES_OPTION) {
                     Reservacion re = ccp.ConsulttarReservacionesDisponibles(identificacion).get(fila);
                     re.setEstado(false);
-                    txt_Tabla.updateUI();
-                  
-                    
-                    
-                            
-                            
-                            
-                  
- 
+                    txt_Tabla.updateUI();                
                     System.out.println(fila);
                     if (ccp.ConsulttarReservacionesDisponibles(identificacion).isEmpty()) {
                         botonCancelarReservacion.setEnabled(false);

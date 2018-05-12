@@ -211,6 +211,11 @@ public class Reservaciones extends javax.swing.JFrame {
         });
 
         BuscarBoton.setText("Buscar");
+        BuscarBoton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarBotonActionPerformed(evt);
+            }
+        });
 
         jLabel19.setText("Email:");
 
@@ -628,6 +633,10 @@ public class Reservaciones extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void BuscarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarBotonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BuscarBotonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -711,6 +720,7 @@ public class Reservaciones extends javax.swing.JFrame {
                 selecionado = c.getTipo_cliente();
                 jComboBox1.updateUI();
                 jComboBox1.enable(false);
+                CC.setEditable(false);
                 ////////////////////////////////////////
                 NombreEven.setEditable(true);
                 IDRes.setEditable(true);
@@ -718,6 +728,7 @@ public class Reservaciones extends javax.swing.JFrame {
                 RegistrarBu.setEnabled(true);
                 Respon.setEditable(true);
                 CancelarB.setEnabled(true);
+                BuscarBoton.setEnabled(false);
                 si = JOptionPane.NO_OPTION;
 
 //                if (c1 == null) {
@@ -737,8 +748,9 @@ public class Reservaciones extends javax.swing.JFrame {
                             "Cliente No Encontado",
                             JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                     if (si == JOptionPane.NO_OPTION) {
-                        JOptionPane.showMessageDialog(null, ex.getMessage());
                     } else {
+                        BuscarBoton.setEnabled(false);
+                        CC.setEditable(false);
                         NombreSol.setEditable(true);
                         Telefono.setEditable(true);
                         Email.setEditable(true);
@@ -808,7 +820,7 @@ public class Reservaciones extends javax.swing.JFrame {
 
                     JOptionPane.showMessageDialog(null, "Campos Obligatorios De Solicitante Sin Rellenar");
                 } else {
-                    if (NombreSol.getText().isEmpty() || IDRes.getText().isEmpty()
+                    if (Respon.getText().isEmpty() || IDRes.getText().isEmpty()
                             || NombreEven.getText().isEmpty() || NumeroAsistente.getText().isEmpty()) {
                         JOptionPane.showMessageDialog(null, "Campos Obligatorios Del Evento Sin Rellenar");
                     } else {
@@ -859,7 +871,7 @@ public class Reservaciones extends javax.swing.JFrame {
 
                         }
                         int ms = JOptionPane.showConfirmDialog(null, "¿Desea Registrar La Reservacion Del Solicitante  "
-                                + c1.getNombres() + " Para El Dia " + Programada + " En El Salon " + ev.getSalon().getNombre() + "?",
+                                + c1.getNombres() + " Para El Dia " + Programada + " En El " + ev.getSalon().getNombre() + "?",
                                 "Confirmar Reservacion",
                                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
@@ -953,6 +965,10 @@ public class Reservaciones extends javax.swing.JFrame {
             c1 = null;
             Telefono.setEditable(true);
             NombreSol.setEditable(true);
+            CC.setEditable(true);
+            CancelarB.setEnabled(false);
+            RegistrarBu.setEnabled(false);
+            BuscarBoton.setEnabled(true);
 
         }
 

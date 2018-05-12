@@ -37,6 +37,7 @@ public class ConsultarReservaciones extends javax.swing.JFrame {
 
         ManejadorComboBox mc = new ManejadorComboBox();
         comboBox.setModel(mc);
+        Cancelar.setEnabled(false);
     }
 
     /**
@@ -159,16 +160,27 @@ public class ConsultarReservaciones extends javax.swing.JFrame {
         comboBox.updateUI();
         diaCalendario.setDate(null);
         diaCalendario.updateUI();
+        Buscar.setEnabled(true);
+        Cancelar.setEnabled(false);
+        diaCalendario.setEnabled(true);
+        comboBox.setEnabled(true);
     }//GEN-LAST:event_CancelarActionPerformed
 
+    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
     private void BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarActionPerformed
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         Date da = diaCalendario.getDate();
-        fechaCadena = sdf.format(da);
-
-        ManejadorJtable mtm = new ManejadorJtable();
-        Table.setModel(mtm);
+        if (diaCalendario.getDate() == null || (comboBox.getSelectedItem() == null)) {
+            JOptionPane.showMessageDialog(null, "Selecione Un Salon Y Una Fecha");
+        } else {
+            fechaCadena = sdf.format(da);
+            ManejadorJtable mtm = new ManejadorJtable();
+            Table.setModel(mtm);
+            diaCalendario.setEnabled(false);
+            comboBox.setEnabled(false);
+            Cancelar.setEnabled(true);
+            Buscar.setEnabled(false);
+        }
 
     }//GEN-LAST:event_BuscarActionPerformed
 
@@ -225,10 +237,10 @@ public class ConsultarReservaciones extends javax.swing.JFrame {
 
         @Override
         public int getRowCount() {
-            if (ccp.reservacionesHora(fechaCadena, (Salones) selecionado).isEmpty()) {
-                Table.setModel((new DefaultTableModel()));
-            }
-            return ccp.reservacionesHora(fechaCadena, (Salones) selecionado).size();
+//            if (ccp.reservacionesHora(fechaCadena, (Salones) comboBox.getSelectedItem()).isEmpty()) {
+//                Table.setModel((new DefaultTableModel()));
+//            }
+            return ccp.reservacionesHora(fechaCadena, (Salones) comboBox.getSelectedItem()).size();
         }
 
         @Override
@@ -238,7 +250,7 @@ public class ConsultarReservaciones extends javax.swing.JFrame {
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
-            Reservacion dc = ccp.reservacionesHora(fechaCadena, (Salones) selecionado).get(rowIndex);
+            Reservacion dc = ccp.reservacionesHora(fechaCadena, (Salones) comboBox.getSelectedItem()).get(rowIndex);
             Object valor = "";
             switch (columnIndex) {
                 case 0:
