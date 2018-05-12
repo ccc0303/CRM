@@ -148,7 +148,7 @@ public class Hora extends javax.swing.JFrame {
             }
         });
 
-        MinutoI.setModel(new javax.swing.SpinnerNumberModel(0, 0, 60, 30));
+        MinutoI.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 30));
         MinutoI.setNextFocusableComponent(HoraFi);
 
         HoraI.setModel(new javax.swing.SpinnerNumberModel(8, 8, 21, 1));
@@ -157,7 +157,7 @@ public class Hora extends javax.swing.JFrame {
         HoraFi.setModel(new javax.swing.SpinnerNumberModel(9, 9, 22, 1));
         HoraFi.setNextFocusableComponent(MinutoFinal);
 
-        MinutoFinal.setModel(new javax.swing.SpinnerNumberModel(0, 0, 60, 10));
+        MinutoFinal.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 30));
 
         jLabel5.setText("Minutos:");
 
@@ -297,11 +297,35 @@ public class Hora extends javax.swing.JFrame {
             int contador = 0;
             horaInicio = LocalTime.parse(Hora1);
             Horafin = LocalTime.parse(Hora2);
+
+            //HoraMinima 
+            int HoraMinima = horaInicio.getHour() - Horafin.getHour();
+            int MinutoMinimo = horaInicio.getMinute() - Horafin.getMinute();
+            int diferencia3 = HoraMinima * 60 + MinutoMinimo;
+
+            if (diferencia3 < 0) {
+                diferencia3 = diferencia3 * -1;
+
+            }
+
             if (res.isEmpty()) {
-                this.ventana = new Reservaciones(ccp, Hora1, Hora2, salon, fech);
-                this.ventana.setResizable(false);
-                dispose();
-                ventana.setVisible(true);
+
+                if (horaInicio.getHour() >=  Horafin.getHour()) {
+                    JOptionPane.showMessageDialog(null, "Hora De Reservacion No Disponible");
+                }else{
+                      if (diferencia3 < 60) {
+                    JOptionPane.showMessageDialog(null, "Hora De Reservacion No Disponible");
+
+                } else {
+                    this.ventana = new Reservaciones(ccp, Hora1, Hora2, salon, fech);
+                    this.ventana.setResizable(false);
+                    dispose();
+                    ventana.setVisible(true);
+                }
+                }
+
+              
+
             }
             while ((iterrardor < Horafinal.size())) {
 
@@ -328,7 +352,13 @@ public class Hora extends javax.swing.JFrame {
                     diferencia2 = diferencia2 * -1;
 
                 }
-                System.out.println("Hola " + diferencia2);
+
+                if (diferencia3 < 60) {
+                    JOptionPane.showMessageDialog(null, "Hora De Reservacion No Disponible");
+                    break;
+
+                }
+
                 if ((horaInicio == horainicial.get(iterrardor)) || (Horafin == Horafinal.get(iterrardor))
                         || (horaInicio == Horafinal.get(iterrardor)) || (Horafin == horainicial.get(iterrardor))) {
                     JOptionPane.showMessageDialog(null, "Hora De Reservacion No Disponible");

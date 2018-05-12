@@ -76,6 +76,15 @@ public class Reservaciones extends javax.swing.JFrame {
 
         manejadorcancelar mc = new manejadorcancelar();
         CancelarB.addActionListener(mc);
+
+        ////////////////////////////////////////////////
+        NombreEven.setEditable(false);
+        IDRes.setEditable(false);
+        NumeroAsistente.setEditable(false);
+        RegistrarBu.setEnabled(false);
+        Respon.setEditable(false);
+        CancelarB.setEnabled(false);
+
     }
 
     /**
@@ -702,14 +711,21 @@ public class Reservaciones extends javax.swing.JFrame {
                 selecionado = c.getTipo_cliente();
                 jComboBox1.updateUI();
                 jComboBox1.enable(false);
+                ////////////////////////////////////////
+                NombreEven.setEditable(true);
+                IDRes.setEditable(true);
+                NumeroAsistente.setEditable(true);
+                RegistrarBu.setEnabled(true);
+                Respon.setEditable(true);
+                CancelarB.setEnabled(true);
+                si = JOptionPane.NO_OPTION;
 
-                if (c1 == null) {
-                    int ms = JOptionPane.showConfirmDialog(null, "El Solicitante Con Numero " + CC.getText()
-                            + " No Se Encuentra Registrado ¿ desea Registrarlo ?",
-                            "Cliente No Encontado",
-                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                }
-
+//                if (c1 == null) {
+//                    int ms = JOptionPane.showConfirmDialog(null, "El Solicitante Con Numero " + CC.getText()
+//                            + " No Se Encuentra Registrado ¿ desea Registrarlo ?",
+//                            "Cliente No Encontado",
+//                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+//                }
             } catch (NumberFormatException nfe) {
                 JOptionPane.showMessageDialog(null, "Ingrese Un Numero De Identificacion Valido");
             } catch (IllegalArgumentException iae) {
@@ -732,6 +748,13 @@ public class Reservaciones extends javax.swing.JFrame {
                         selecionado = null;
                         jComboBox1.enable(true);
                         jComboBox1.updateUI();
+                        NombreEven.setEditable(true);
+                        IDRes.setEditable(true);
+                        NumeroAsistente.setEditable(true);
+                        RegistrarBu.setEnabled(true);
+                        Respon.setEditable(true);
+                        CancelarB.setEnabled(true);
+                        c1 = null;
                         JOptionPane.showMessageDialog(null, "El Cliente Sera Registrado Al Finalizar El Registro");
                     }
 
@@ -832,7 +855,7 @@ public class Reservaciones extends javax.swing.JFrame {
 
                             c1 = new Cliente(Ema, Te, cc, no, Ts);
                             ccp.AgregarCliente(c1);
-                            JOptionPane.showMessageDialog(null, "El Solicitante " + c1.getNombres() + "Ha Sido Registrado ");
+                            JOptionPane.showMessageDialog(null, "El Solicitante " + c1.getNombres() + " Ha Sido Registrado ");
 
                         }
                         int ms = JOptionPane.showConfirmDialog(null, "¿Desea Registrar La Reservacion Del Solicitante  "
@@ -840,10 +863,9 @@ public class Reservaciones extends javax.swing.JFrame {
                                 "Confirmar Reservacion",
                                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-                        //System.out.println( "Evento " + rs.getEvento().isHimnos());
                         if (ms == JOptionPane.YES_OPTION) {
 
-                            Reservacion rs = new Reservacion(c1, ev, LocalTime.parse(Hora1), LocalTime.parse(Hora1),
+                            Reservacion rs = new Reservacion(c1, ev, LocalTime.parse(Hora1), LocalTime.parse(Hora2),
                                     Programada);
                             ccp.AgregarReservacion(rs);
                             JOptionPane.showMessageDialog(null, "Se Ha Registrado La reservacion Con Exito");
