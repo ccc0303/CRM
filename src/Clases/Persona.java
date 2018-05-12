@@ -19,7 +19,7 @@ public class Persona {
 
         if ((identificacion.toString().length() < 6)
                 || (identificacion.toString().length() > 11)) {
-            throw new Exception("N° De Identificacion No Valido");
+            throw new Exception("N° De Identificacion No Valido ");
         }
         this.identificacion = identificacion;
         this.nombre = nombre;
