@@ -140,6 +140,11 @@ public class CancelarR_GUI extends javax.swing.JDialog {
         botonCancelarReservacion.setText("Cancelar Reservacion");
         botonCancelarReservacion.setEnabled(false);
         botonCancelarReservacion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonCancelarReservacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarReservacionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -250,6 +255,10 @@ public class CancelarR_GUI extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void botonCancelarReservacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarReservacionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonCancelarReservacionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -386,9 +395,10 @@ public class CancelarR_GUI extends javax.swing.JDialog {
             Long identificacion = Long.parseLong(txt_Identificacion.getText());
             fila = txt_Tabla.getSelectedRow();
             s = fila;
-
-            if ((s == -1)) {
+            System.out.println("lo seleccionado "+fila+" "+txt_Tabla.getSelectedRow());
+            if ((txt_Tabla.getSelectedRow() == -1)) {
                 JOptionPane.showMessageDialog(null, "Selecione Una Reservacion");
+                botonCancelarReservacion.setEnabled(false);
 
             } else {
 
@@ -397,7 +407,14 @@ public class CancelarR_GUI extends javax.swing.JDialog {
                     Reservacion re = ccp.ConsulttarReservacionesDisponibles(identificacion).get(fila);
                     re.setEstado(false);
                     txt_Tabla.updateUI();
-                   
+                  
+                    
+                    
+                            
+                            
+                            
+                  
+ 
                     System.out.println(fila);
                     if (ccp.ConsulttarReservacionesDisponibles(identificacion).isEmpty()) {
                         botonCancelarReservacion.setEnabled(false);
@@ -405,7 +422,6 @@ public class CancelarR_GUI extends javax.swing.JDialog {
                 }
 
             }
-             s = s - fila - 1;
 
         }
 

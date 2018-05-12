@@ -74,6 +74,7 @@ public class Hora extends javax.swing.JFrame {
             iterador = iterador + 1;
         }
 
+        System.out.println(Horafinal);
 
         ManejadorJtable mj = new ManejadorJtable();
         jTable1.setModel(mj);
@@ -147,7 +148,7 @@ public class Hora extends javax.swing.JFrame {
             }
         });
 
-        MinutoI.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 30));
+        MinutoI.setModel(new javax.swing.SpinnerNumberModel(0, 0, 60, 30));
         MinutoI.setNextFocusableComponent(HoraFi);
 
         HoraI.setModel(new javax.swing.SpinnerNumberModel(8, 8, 21, 1));
@@ -156,7 +157,7 @@ public class Hora extends javax.swing.JFrame {
         HoraFi.setModel(new javax.swing.SpinnerNumberModel(9, 9, 22, 1));
         HoraFi.setNextFocusableComponent(MinutoFinal);
 
-        MinutoFinal.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 30));
+        MinutoFinal.setModel(new javax.swing.SpinnerNumberModel(0, 0, 60, 10));
 
         jLabel5.setText("Minutos:");
 
