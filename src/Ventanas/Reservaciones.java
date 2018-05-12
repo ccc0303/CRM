@@ -711,7 +711,7 @@ public class Reservaciones extends javax.swing.JFrame {
                 }
 
             } catch (NumberFormatException nfe) {
-                JOptionPane.showMessageDialog(null, "Ingrese Un Codigo Valido");
+                JOptionPane.showMessageDialog(null, "Ingrese Un Numero De Identificacion Valido");
             } catch (IllegalArgumentException iae) {
                 JOptionPane.showMessageDialog(null, iae.getMessage());
             } catch (Exception ex) {
@@ -783,11 +783,11 @@ public class Reservaciones extends javax.swing.JFrame {
                 if (CC.getText().isEmpty() || Telefono.getText().isEmpty() || NombreSol.getText().isEmpty()
                         || selecionado == null || Email.getText().isEmpty()) {
 
-                    JOptionPane.showMessageDialog(null, "Campos Obligatoris De Solicitante Sin Rellenar");
+                    JOptionPane.showMessageDialog(null, "Campos Obligatorios De Solicitante Sin Rellenar");
                 } else {
                     if (NombreSol.getText().isEmpty() || IDRes.getText().isEmpty()
                             || NombreEven.getText().isEmpty() || NumeroAsistente.getText().isEmpty()) {
-                        JOptionPane.showMessageDialog(null, "Campos Obligatoris Del Evento Sin Rellenar");
+                        JOptionPane.showMessageDialog(null, "Campos Obligatorios Del Evento Sin Rellenar");
                     } else {
                         String nombreRe = Respon.getText();
                         Long Id = Long.parseLong(IDRes.getText());
@@ -848,6 +848,7 @@ public class Reservaciones extends javax.swing.JFrame {
                             ccp.AgregarReservacion(rs);
                             JOptionPane.showMessageDialog(null, "Se Ha Registrado La reservacion Con Exito");
                             //BorrarCampos
+                            dispose();
                             Respon.setText("");
                             IDRes.setText("");
                             NombreEven.setText("");
